@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pluscuamperfecto — 100 de exerciții</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#1B3A8C;--azul-claro:#4A6FD4;--yeso:#EFE9DE;--yeso-2:#E4DCCD;--tinta:#17181C;
+--verde:#2E7D5B;--rojo:#A83232;--oro:#C8952B;
+--display:'Fraunces',Georgia,serif;--body:'Karla','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--yeso);color:var(--tinta);font-family:var(--body);line-height:1.5;padding:28px 18px 60px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:680px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--azul);margin:0 0 6px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,6.2vw,48px);line-height:.98;margin:0 0 8px;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--azul)}
+.lede{margin:0 0 18px;max-width:48ch;font-size:15px;color:#4B4A46}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.chips button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;
+  border:1px solid var(--yeso-2);background:transparent;color:#6E6A61;cursor:pointer;transition:.15s}
+.chips button:hover{border-color:var(--azul);color:var(--azul)}
+.chips button[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:var(--yeso)}
+.chips button.shuffle{border-style:dashed;color:var(--oro);border-color:var(--oro)}
+.tiles{display:flex;flex-wrap:wrap;gap:3px;margin:0 0 22px}
+.tile{width:13px;height:13px;border:1px solid var(--yeso-2);background:transparent;transition:background .25s,border-color .25s}
+.tile.ok{border-color:var(--azul);background:
+  linear-gradient(45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),
+  linear-gradient(-45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),var(--azul)}
+.tile.no{background:var(--rojo);border-color:var(--rojo);opacity:.75}
+.tile.now{border-color:var(--oro);box-shadow:inset 0 0 0 2px var(--oro)}
+.card{background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--azul);padding:26px 22px 22px}
+.meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:#8A857A;margin-bottom:16px}
+.sentence{font-family:var(--display);font-size:clamp(19px,4.2vw,25px);line-height:1.65;margin:0 0 18px}
+.cue{font-family:var(--mono);font-size:13px;color:var(--azul);background:rgba(27,58,140,.07);padding:2px 7px;white-space:nowrap}
+input.gap{font-family:var(--display);font-size:inherit;font-style:italic;width:17ch;padding:0 4px 2px;margin:0 2px;
+  border:none;border-bottom:2px solid var(--azul-claro);background:rgba(74,111,212,.07);color:var(--azul);text-align:center;outline:none}
+input.gap:focus{border-bottom-color:var(--oro);background:rgba(200,149,43,.12)}
+input.gap:disabled{opacity:1}
+input.gap.good{color:var(--verde);border-bottom-color:var(--verde);background:rgba(46,125,91,.08)}
+input.gap.bad{color:var(--rojo);border-bottom-color:var(--rojo);background:rgba(168,50,50,.08);text-decoration:line-through}
+.accents{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.accents button{font-family:var(--display);font-size:16px;width:34px;height:32px;border:1px solid var(--yeso-2);background:#fff;color:var(--tinta);cursor:pointer;transition:.15s}
+.accents button:hover{border-color:var(--azul);color:var(--azul)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button.primary,button.ghost{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.02em;padding:11px 20px;border:1px solid var(--azul);cursor:pointer;transition:.15s}
+button.primary{background:var(--azul);color:var(--yeso)}
+button.primary:hover{background:#12296B}
+button.ghost{background:transparent;color:var(--azul)}
+button.ghost:hover{background:rgba(27,58,140,.07)}
+button:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.fb{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--azul);background:rgba(27,58,140,.05);display:none}
+.fb.show{display:block}
+.fb.good{border-left-color:var(--verde);background:rgba(46,125,91,.07)}
+.fb.bad{border-left-color:var(--rojo);background:rgba(168,50,50,.06)}
+.fb .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+.fb.good .verdict{color:var(--verde)}
+.fb.bad .verdict{color:var(--rojo)}
+.fb .sol{font-family:var(--display);font-size:19px;margin:0 0 8px}
+.fb .sol b{color:var(--azul);font-style:italic}
+.fb .why{margin:0;font-size:14.5px;color:#3D3C38}
+.score{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:#8A857A;margin-top:14px;letter-spacing:.08em}
+.end{display:none;background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--oro);padding:26px 22px}
+.end.show{display:block}
+.end h2{font-family:var(--display);font-size:30px;margin:0 0 4px}
+.big{font-family:var(--display);font-size:56px;line-height:1;color:var(--azul);margin:10px 0 4px}
+.missed{margin:18px 0 20px;padding:0;list-style:none;max-height:420px;overflow:auto}
+.missed li{border-top:1px solid var(--yeso-2);padding:10px 0;font-size:14.5px}
+.missed .m-s{color:#5A5850}
+.missed .m-a{font-family:var(--display);font-style:italic;color:var(--azul)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Timpul 5 din 5 · los 100 verbos más usados</p>
+  <h1>Pretérito <em>pluscuamperfecto</em></h1>
+  <p class="lede">100 de fraze. Formula e una singură: <strong>había</strong> + participiu, aceleași participii ca la perfectul compus. Dificultatea nu e forma, ci momentul: trecutul dinaintea altui trecut.</p>
+  <div class="chips" id="chips"></div>
+  <div class="tiles" id="tiles"></div>
+  <div class="card" id="card">
+    <div class="meta"><span id="counter"></span><span id="tag"></span></div>
+    <p class="sentence" id="sentence"></p>
+    <div class="accents" id="accents"></div>
+    <div class="actions">
+      <button class="primary" id="btnCheck">Verifică</button>
+      <button class="ghost" id="btnShow">Nu știu</button>
+    </div>
+    <div class="fb" id="fb"><p class="verdict" id="verdict"></p><p class="sol" id="sol"></p><p class="why" id="why"></p></div>
+    <div class="score"><span id="scoreL"></span><span id="scoreR"></span></div>
+  </div>
+  <div class="end" id="end">
+    <h2>Gata.</h2>
+    <p class="big" id="finalScore"></p>
+    <p id="finalMsg" style="margin:0 0 6px;color:#5A5850"></p>
+    <ul class="missed" id="missed"></ul>
+    <div class="actions">
+      <button class="primary" id="btnRedo">Reia doar greșelile</button>
+      <button class="ghost" id="btnRestart">Începe de la capăt</button>
+    </div>
+  </div>
+</div>
+<script>
+const ITEMS=[
+/* FORMACIÓN */
+{c:"formación",s:"Cuando llegué al cine, la película ya ___.",v:"empezar",a:["había empezado"],e:"haber la imperfect + participiu: había, habías, había, habíamos, habíais, habían."},
+{c:"formación",s:"Nos dijo que ___ en Alemania durante seis años.",v:"trabajar, él",a:["había trabajado"],e:"había trabajado."},
+{c:"formación",s:"Yo nunca ___ en avión hasta aquel día.",v:"viajar",a:["había viajado"],e:"Prima dată când se face ceva, raportat la un moment din trecut."},
+{c:"formación",s:"Ellos ya ___ cuando nosotros llegamos.",v:"cenar",a:["habían cenado"],e:"habían cenado, persoana a III-a plural."},
+{c:"formación",s:"Vosotros ___ muchísimo antes del examen.",v:"estudiar",a:["habíais estudiado"],e:"habíais, cu accent pe i."},
+{c:"formación",s:"Nosotros no ___ nada de la explicación anterior.",v:"entender",a:["habíamos entendido"],e:"habíamos entendido. Participiul e regulat: entendido."},
+{c:"formación",s:"Ella ___ el pasaporte dos días antes del viaje.",v:"perder",a:["había perdido"],e:"había perdido."},
+{c:"formación",s:"Yo ya ___ cuando me llamaste para comer.",v:"comer",a:["había comido"],e:"había comido."},
+{c:"formación",s:"¿___ alguna vez allí antes de aquel verano?",v:"estar, tú",a:["habías estado"],e:"habías estado."},
+{c:"formación",s:"Los niños ___ apenas tres horas aquella noche.",v:"dormir",a:["habían dormido"],e:"Participiul e regulat: dormido, fără o → u."},
+{c:"formación",s:"El tren ___ hacía diez minutos cuando aparecimos.",v:"salir",a:["había salido"],e:"había salido."},
+{c:"formación",s:"Nosotros ___ la mesa con dos semanas de antelación.",v:"reservar",a:["habíamos reservado"],e:"habíamos reservado."},
+{c:"formación",s:"Ella me ___ tres veces antes de marcharse.",v:"llamar",a:["había llamado"],e:"había llamado."},
+{c:"formación",s:"Vosotros ___ allí antes de la boda, ¿verdad?",v:"vivir",a:["habíais vivido"],e:"habíais vivido."},
+{c:"formación",s:"Yo todavía no ___ su carta cuando la llamé.",v:"recibir",a:["había recibido"],e:"había recibido."},
+{c:"formación",s:"Ellos ___ el coche antes de mudarse al pueblo.",v:"vender",a:["habían vendido"],e:"habían vendido."},
+{c:"formación",s:"Nosotros ya ___ la cuenta cuando él llegó.",v:"pagar",a:["habíamos pagado"],e:"Participiul e regulat: pagado, fără g → gu."},
+{c:"formación",s:"Ella ___ español antes de irse a vivir a Chile.",v:"aprender",a:["había aprendido"],e:"había aprendido."},
+{c:"formación",s:"Yo ___ el informe antes de las seis, como me pidieron.",v:"terminar",a:["había terminado"],e:"había terminado."},
+{c:"formación",s:"El accidente ___ media hora antes de que pasáramos.",v:"ocurrir",a:["había ocurrido"],e:"había ocurrido."},
+/* PARTICIPIOS IRREGULARES */
+{c:"participios irregulares",s:"Cuando llegué, alguien ya ___ la puerta.",v:"abrir",a:["había abierto"],e:"Participiu neregulat: abierto."},
+{c:"participios irregulares",s:"Nunca ___ nada parecido en toda mi vida.",v:"ver, yo",a:["había visto"],e:"Participiu neregulat: visto."},
+{c:"participios irregulares",s:"Me dijo que ___ con su novia hacía un mes.",v:"romper, él",a:["había roto"],e:"Participiu neregulat: roto."},
+{c:"participios irregulares",s:"Todavía no ___ la mudanza cuando los visité.",v:"hacer, ellos",a:["habían hecho"],e:"Participiu neregulat: hecho."},
+{c:"participios irregulares",s:"Nos ___ que no vendría, pero apareció igual.",v:"decir, ella",a:["había dicho"],e:"Participiu neregulat: dicho."},
+{c:"participios irregulares",s:"El escritor ___ unos meses antes del homenaje.",v:"morir",a:["había muerto"],e:"Participiu neregulat: muerto."},
+{c:"participios irregulares",s:"No encontraba las llaves: no recordaba dónde las ___.",v:"poner, yo",a:["había puesto"],e:"Participiu neregulat: puesto."},
+{c:"participios irregulares",s:"Ellos ya ___ del viaje cuando estalló la crisis.",v:"volver",a:["habían vuelto"],e:"Participiu neregulat: vuelto."},
+{c:"participios irregulares",s:"Nadie ___ nada en el libro de visitas.",v:"escribir",a:["había escrito"],e:"Participiu neregulat: escrito."},
+{c:"participios irregulares",s:"El equipo ___ el problema antes de la reunión.",v:"resolver",a:["había resuelto"],e:"resolver → resuelto."},
+{c:"participios irregulares",s:"Todavía no me ___ el libro que le presté en marzo.",v:"devolver, él",a:["había devuelto"],e:"devolver → devuelto."},
+{c:"participios irregulares",s:"Los ladrones ___ las cámaras con una tela.",v:"cubrir",a:["habían cubierto"],e:"cubrir → cubierto."},
+{c:"participios irregulares",s:"Nunca ___ un viaje tan largo hasta entonces.",v:"hacer, nosotros",a:["habíamos hecho"],e:"habíamos hecho."},
+{c:"participios irregulares",s:"Ella ___ la verdad hacía bastante tiempo.",v:"descubrir",a:["había descubierto"],e:"descubrir → descubierto."},
+{c:"participios irregulares",s:"Yo no ___ esa película antes de aquella noche.",v:"ver",a:["había visto"],e:"había visto."},
+{c:"participios irregulares",s:"Vosotros ya ___ que no os interesaba el trato.",v:"decir",a:["habíais dicho"],e:"habíais dicho."},
+{c:"participios irregulares",s:"Alguien ___ el cristal durante la noche.",v:"romper",a:["había roto"],e:"había roto."},
+{c:"participios irregulares",s:"Cuando entré en el comedor, ya ___ la mesa.",v:"poner, ellos",a:["habían puesto"],e:"habían puesto."},
+{c:"participios irregulares",s:"Ella ___ a fumar poco antes de la operación.",v:"volver",a:["había vuelto"],e:"volver a + infinitiv: a face din nou."},
+{c:"participios irregulares",s:"No sabíamos que ___ una sucursal nueva en el barrio.",v:"abrir, ellos",a:["habían abierto"],e:"habían abierto."},
+{c:"participios irregulares",s:"Nunca ___ una carta tan difícil como aquella.",v:"escribir, yo",a:["había escrito"],e:"había escrito."},
+{c:"participios irregulares",s:"El médico ya ___ todo lo posible por salvarlo.",v:"hacer",a:["había hecho"],e:"había hecho."},
+{c:"participios irregulares",s:"Se lo ___ mil veces antes de que ocurriera.",v:"decir, nosotros",a:["habíamos dicho"],e:"habíamos dicho."},
+{c:"participios irregulares",s:"La nieve ___ toda la carretera de montaña.",v:"cubrir",a:["había cubierto"],e:"había cubierto."},
+/* ANTERIORIDAD */
+{c:"anterioridad",s:"Cuando llegamos al aeropuerto, el avión ya ___.",v:"despegar",a:["había despegado"],e:"Două acțiuni în trecut: cea anterioară merge la pluscuamperfect."},
+{c:"anterioridad",s:"Cuando abrí el sobre, alguien ya lo ___.",v:"leer",a:["había leído"],e:"leído, cu accent pe i."},
+{c:"anterioridad",s:"Ya ___ cuando por fin llamé por teléfono.",v:"irse, ellos",a:["se habían ido"],e:"Pronumele se pune înaintea auxiliarului: se habían ido."},
+{c:"anterioridad",s:"Cuando la conocí, ella ya ___ en cuatro países.",v:"vivir",a:["había vivido"],e:"Experiență acumulată înainte de acel moment."},
+{c:"anterioridad",s:"Cuando entramos en la sala, la reunión ya ___.",v:"terminar",a:["había terminado"],e:"había terminado."},
+{c:"anterioridad",s:"Ya ___ cuando sonó el timbre de la puerta.",v:"acostarse, yo",a:["me había acostado"],e:"me había acostado."},
+{c:"anterioridad",s:"Cuando quisimos comprar entradas, ya se ___.",v:"agotar",a:["habían agotado"],e:"se habían agotado; pronumele e deja în frază."},
+{c:"anterioridad",s:"Cuando llegó la ambulancia, el hombre ya ___.",v:"morir",a:["había muerto"],e:"había muerto."},
+{c:"anterioridad",s:"Cuando volví a casa, alguien ___ toda la cocina.",v:"limpiar",a:["había limpiado"],e:"había limpiado."},
+{c:"anterioridad",s:"Ya ___ a llover cuando salimos del restaurante.",v:"empezar",a:["había empezado"],e:"había empezado."},
+{c:"anterioridad",s:"Cuando me lo contaron, yo ya me ___ por otro lado.",v:"enterarse",a:["había enterado"],e:"me había enterado; pronumele e deja scris în frază."},
+{c:"anterioridad",s:"Cuando llegó la policía, los ladrones ya ___.",v:"huir",a:["habían huido"],e:"Participiul huido nu poartă accent, pentru că vine după u."},
+{c:"anterioridad",s:"Ya ___ el supermercado cuando llegué corriendo.",v:"cerrar, ellos",a:["habían cerrado"],e:"Participiul e regulat: cerrado, fără diftong."},
+{c:"anterioridad",s:"Cuando lo llamé, ya ___ los billetes para los dos.",v:"comprar, él",a:["había comprado"],e:"había comprado."},
+{c:"anterioridad",s:"Cuando llegó el último invitado, ya ___ la cena.",v:"servir, nosotros",a:["habíamos servido"],e:"Participiul e regulat: servido, fără e → i."},
+{c:"anterioridad",s:"Cuando encendí la tele, el partido ya ___.",v:"acabar",a:["había acabado"],e:"había acabado."},
+{c:"anterioridad",s:"Ya ___ ese libro cuando me lo regalaron por mi cumpleaños.",v:"leer, yo",a:["había leído"],e:"había leído."},
+{c:"anterioridad",s:"Cuando volvimos de vacaciones, ___ toda la hierba del jardín.",v:"crecer",a:["había crecido"],e:"Participiul e regulat: crecido."},
+{c:"anterioridad",s:"Cuando quise reservar, ya se ___ el hotel entero.",v:"llenar",a:["había llenado"],e:"se había llenado; el hotel e singular."},
+{c:"anterioridad",s:"Cuando llegamos al portal, ya ___ las luces.",v:"apagarse",a:["se habían apagado"],e:"se habían apagado, cu pronumele înaintea auxiliarului."},
+/* ESTILO INDIRECTO */
+{c:"estilo indirecto",s:"Me dijo que ___ el móvil en el taxi.",v:"perder, ella",a:["había perdido"],e:"În vorbirea indirectă, un perfect compus sau un indefinido devin pluscuamperfect: he perdido → había perdido."},
+{c:"estilo indirecto",s:"Nos contó que ___ diez años en Cuba.",v:"vivir, él",a:["había vivido"],e:"había vivido."},
+{c:"estilo indirecto",s:"Dijeron que ya ___ el paquete la semana anterior.",v:"enviar",a:["habían enviado"],e:"habían enviado."},
+{c:"estilo indirecto",s:"Me confesó que nunca ___ irse de aquella casa.",v:"querer, él",a:["había querido"],e:"había querido."},
+{c:"estilo indirecto",s:"Explicó que ___ muchos problemas con el banco.",v:"tener, ella",a:["había tenido"],e:"había tenido."},
+{c:"estilo indirecto",s:"Nos aseguró que ___ todo lo posible por ayudarnos.",v:"hacer, él",a:["había hecho"],e:"había hecho."},
+{c:"estilo indirecto",s:"Dijo que no ___ a nadie sospechoso aquella noche.",v:"ver, él",a:["había visto"],e:"había visto."},
+{c:"estilo indirecto",s:"Comentó que ___ en el mismo colegio de pequeños.",v:"estar, ellos",a:["habían estado"],e:"habían estado."},
+{c:"estilo indirecto",s:"Escribió que ___ bien a Buenos Aires.",v:"llegar, él",a:["había llegado"],e:"había llegado."},
+{c:"estilo indirecto",s:"Nos dijo que se ___ en secreto, sin decírselo a nadie.",v:"casar, ella",a:["había casado"],e:"se había casado; pronumele e deja în frază."},
+{c:"estilo indirecto",s:"Contó que ___ de camarera para pagarse los estudios.",v:"trabajar, ella",a:["había trabajado"],e:"había trabajado."},
+{c:"estilo indirecto",s:"Admitió que ___ a todo el mundo durante meses.",v:"mentir, él",a:["había mentido"],e:"Participiul e regulat: mentido, fără e → i."},
+{c:"estilo indirecto",s:"Nos explicaron que ___ el horario de atención.",v:"cambiar, ellos",a:["habían cambiado"],e:"habían cambiado."},
+{c:"estilo indirecto",s:"Dijo que nunca ___ el marisco antes de venir aquí.",v:"probar, él",a:["había probado"],e:"había probado."},
+/* USOS */
+{c:"usos",s:"Nunca ___ el mar hasta los quince años.",v:"ver, yo",a:["había visto"],e:"nunca... hasta + moment din trecut: marcă tipică de pluscuamperfect."},
+{c:"usos",s:"Hasta entonces no ___ solos a ninguna parte.",v:"viajar, nosotros",a:["habíamos viajado"],e:"hasta entonces e un marcator clasic al acestui timp."},
+{c:"usos",s:"Aún no ___ los dieciocho cuando se fue de casa.",v:"cumplir, ella",a:["había cumplido"],e:"aún no / todavía no + pluscuamperfect."},
+{c:"usos",s:"Era la primera vez que ___ a un escenario.",v:"subir, yo",a:["había subido"],e:"era la primera vez que + pluscuamperfect."},
+{c:"usos",s:"Todavía no ___ el invierno y ya nevaba.",v:"llegar",a:["había llegado"],e:"había llegado."},
+{c:"usos",s:"Hasta aquel día no ___ la comida picante.",v:"probar, ellos",a:["habían probado"],e:"hasta aquel día e marcatorul din notițe."},
+{c:"usos",s:"Nunca ___ tan cansada como aquella mañana.",v:"sentirse, yo",a:["me había sentido"],e:"me había sentido."},
+{c:"usos",s:"Era la tercera vez que ___ el mismo examen.",v:"repetir, él",a:["había repetido"],e:"había repetido."},
+{c:"usos",s:"Aún no ___ las clases y ya estaba agotada.",v:"empezar, ellas",a:["habían empezado"],e:"habían empezado."},
+{c:"usos",s:"Nunca ___ hablar de ese pueblo hasta que nos lo enseñaron.",v:"oír, nosotros",a:["habíamos oído"],e:"oído, cu accent pe i."},
+{c:"usos",s:"Hasta ese momento nadie ___ nada al respecto.",v:"decir",a:["había dicho"],e:"nadie cere singularul: había dicho."},
+{c:"usos",s:"Era la primera vez que ___ de noche y con lluvia.",v:"conducir, ella",a:["había conducido"],e:"Participiul e regulat: conducido, fără -duj-."},
+/* CONTRASTE */
+{c:"contraste",s:"Anoche ___ en un italiano que abrió hace poco.",v:"cenar, nosotros",a:["cenamos"],e:"O singură acțiune în trecut, cu marcă temporală → indefinido."},
+{c:"contraste",s:"Cuando llegamos, ellos ya ___.",v:"cenar",a:["habían cenado"],e:"Acțiune anterioară altei acțiuni din trecut → pluscuamperfect."},
+{c:"contraste",s:"De niña ___ mucho miedo a la oscuridad.",v:"tener, yo",a:["tenía"],e:"Descriere a unei etape din trecut → imperfect."},
+{c:"contraste",s:"Cuando cumplí veinte años, ya ___ dos trabajos distintos.",v:"tener, yo",a:["había tenido"],e:"Experiență acumulată înaintea acelui moment → pluscuamperfect."},
+{c:"contraste",s:"El lunes ___ con el jefe sobre el aumento.",v:"hablar, yo",a:["hablé"],e:"Acțiune punctuală, cu dată → indefinido."},
+{c:"contraste",s:"Le conté que ya ___ con el jefe sobre el aumento.",v:"hablar, yo",a:["había hablado"],e:"Vorbire indirectă, anterioritate → pluscuamperfect."},
+{c:"contraste",s:"Mientras ella ___, yo preparaba la cena.",v:"leer",a:["leía"],e:"mientras + două acțiuni paralele → imperfect."},
+{c:"contraste",s:"Cuando ella llegó, yo ya ___ el informe entero.",v:"leer",a:["había leído"],e:"Terminat înainte de sosirea ei → pluscuamperfect."},
+{c:"contraste",s:"En 2010 ___ a Sevilla por motivos de trabajo.",v:"mudarse, ellos",a:["se mudaron"],e:"An precizat → indefinido."},
+{c:"contraste",s:"Antes de 2010 ya ___ tres veces.",v:"mudarse, ellos",a:["se habían mudado"],e:"antes de + moment din trecut → pluscuamperfect."}
+];
+const CATS=[{id:"todos",label:"toate (100)"},{id:"formación",label:"formación"},{id:"participios irregulares",label:"participios irregulares"},{id:"anterioridad",label:"anterioridad"},{id:"estilo indirecto",label:"estilo indirecto"},{id:"usos",label:"usos y marcadores"},{id:"contraste",label:"contraste de tiempos"}];
+const ACCENTS=["á","é","í","ó","ú","ñ","ü","¿","¡"];
+let deck=[],idx=0,checked=false,correct=0,missed=[],cat="todos",shuffled=false;
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().trim().replace(/\s+/g," ").normalize("NFD").replace(/[\u0300-\u0302\u0304-\u036f]/g,"").replace(/\u0303/g,"~").normalize("NFC");
+function pool(){const l=cat==="todos"?ITEMS.slice():ITEMS.filter(i=>i.c===cat);if(shuffled)for(let i=l.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[l[i],l[j]]=[l[j],l[i]];}return l;}
+function buildChips(){const c=$("chips");c.innerHTML="";CATS.forEach(k=>{const b=document.createElement("button");b.textContent=k.label;b.type="button";b.setAttribute("aria-pressed",String(k.id===cat));b.addEventListener("click",()=>{cat=k.id;buildChips();start(pool());});c.appendChild(b);});const s=document.createElement("button");s.type="button";s.className="shuffle";s.textContent=shuffled?"ordine amestecată":"amestecă ordinea";s.addEventListener("click",()=>{shuffled=!shuffled;buildChips();start(pool());});c.appendChild(s);}
+function buildAccents(){$("accents").innerHTML="";ACCENTS.forEach(ch=>{const b=document.createElement("button");b.textContent=ch;b.type="button";b.addEventListener("click",()=>{const i=document.querySelector("input.gap");if(!i||i.disabled)return;const p=i.selectionStart??i.value.length;i.value=i.value.slice(0,p)+ch+i.value.slice(i.selectionEnd??p);i.focus();i.setSelectionRange(p+1,p+1);});$("accents").appendChild(b);});}
+function drawTiles(){const t=$("tiles");t.innerHTML="";deck.forEach((it,i)=>{const d=document.createElement("div");d.className="tile"+(it.res==="ok"?" ok":it.res==="no"?" no":"")+(i===idx?" now":"");t.appendChild(d);});}
+function render(){if(idx>=deck.length)return finish();const it=deck[idx];checked=false;
+$("counter").textContent=`Fraza ${idx+1} / ${deck.length}`;$("tag").textContent=it.c;
+const parts=it.s.split("___");const p=$("sentence");p.innerHTML="";p.append(document.createTextNode(parts[0]));
+const inp=document.createElement("input");inp.className="gap";inp.type="text";inp.autocomplete="off";inp.spellcheck=false;inp.setAttribute("aria-label","forma verbului");p.append(inp);
+const cue=document.createElement("span");cue.className="cue";cue.textContent="("+it.v+")";p.append(document.createTextNode(" "));p.append(cue);p.append(document.createTextNode(parts[1]||""));
+$("fb").className="fb";$("btnCheck").textContent="Verifică";$("btnShow").style.display="inline-block";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;drawTiles();inp.focus();}
+function check(reveal){const it=deck[idx],inp=document.querySelector("input.gap");if(!inp)return;const val=inp.value;
+if(!reveal&&!val.trim()){inp.focus();return;}
+const ok=!reveal&&it.a.some(x=>norm(x)===norm(val));
+const exact=!reveal&&it.a.some(x=>x.toLowerCase()===val.toLowerCase().trim().replace(/\s+/g," "));
+inp.disabled=true;inp.classList.add(ok?"good":"bad");if(reveal)inp.value="—";
+it.res=ok?"ok":"no";if(ok)correct++;else missed.push(it);
+$("fb").className="fb show "+(ok?"good":"bad");
+$("verdict").textContent=ok?(exact?"Corect":"Corect — atenție la accent"):(reveal?"Răspunsul":"Greșit");
+$("sol").innerHTML="→ <b>"+it.a.join(" / ")+"</b>";$("why").innerHTML=it.e;
+$("btnCheck").textContent=(idx===deck.length-1)?"Vezi rezultatul":"Următoarea";$("btnShow").style.display="none";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;checked=true;drawTiles();$("btnCheck").focus();}
+function finish(){$("card").style.display="none";$("end").classList.add("show");
+const pct=Math.round(correct/deck.length*100);$("finalScore").textContent=`${correct}/${deck.length}`;
+$("finalMsg").textContent=pct>=90?"Cele cinci timpuri sunt acoperite. Urmează subjuntivul.":pct>=70?"Bine. Verifică lista de mai jos și reia greșelile.":"Reia categoria contraste de tiempos, acolo se decide totul.";
+const ul=$("missed");ul.innerHTML="";if(!missed.length)ul.innerHTML="<li>Nicio greșeală.</li>";
+missed.forEach(m=>{const li=document.createElement("li");li.innerHTML=`<span class="m-s">${m.s.replace("___","______")} (${m.v})</span><br><span class="m-a">${m.a.join(" / ")}</span>`;ul.appendChild(li);});
+$("btnRedo").style.display=missed.length?"inline-block":"none";drawTiles();}
+function start(list){deck=list.map(o=>({...o,res:null}));idx=0;correct=0;missed=[];$("card").style.display="block";$("end").classList.remove("show");render();}
+$("btnCheck").addEventListener("click",()=>{checked?(idx++,render()):check(false);});
+$("btnShow").addEventListener("click",()=>check(true));
+$("btnRedo").addEventListener("click",()=>start(missed.slice()));
+$("btnRestart").addEventListener("click",()=>start(pool()));
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checked?(idx++,render()):check(false);}});
+buildChips();buildAccents();start(pool());
+</script>
+</body>
+</html>

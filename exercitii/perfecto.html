@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pretérito perfecto — 100 de exerciții</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#1B3A8C;--azul-claro:#4A6FD4;--yeso:#EFE9DE;--yeso-2:#E4DCCD;--tinta:#17181C;
+--verde:#2E7D5B;--rojo:#A83232;--oro:#C8952B;
+--display:'Fraunces',Georgia,serif;--body:'Karla','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--yeso);color:var(--tinta);font-family:var(--body);line-height:1.5;padding:28px 18px 60px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:680px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--azul);margin:0 0 6px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,6.6vw,50px);line-height:.98;margin:0 0 8px;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--azul)}
+.lede{margin:0 0 18px;max-width:48ch;font-size:15px;color:#4B4A46}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.chips button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;
+  border:1px solid var(--yeso-2);background:transparent;color:#6E6A61;cursor:pointer;transition:.15s}
+.chips button:hover{border-color:var(--azul);color:var(--azul)}
+.chips button[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:var(--yeso)}
+.chips button.shuffle{border-style:dashed;color:var(--oro);border-color:var(--oro)}
+.tiles{display:flex;flex-wrap:wrap;gap:3px;margin:0 0 22px}
+.tile{width:13px;height:13px;border:1px solid var(--yeso-2);background:transparent;transition:background .25s,border-color .25s}
+.tile.ok{border-color:var(--azul);background:
+  linear-gradient(45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),
+  linear-gradient(-45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),var(--azul)}
+.tile.no{background:var(--rojo);border-color:var(--rojo);opacity:.75}
+.tile.now{border-color:var(--oro);box-shadow:inset 0 0 0 2px var(--oro)}
+.card{background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--azul);padding:26px 22px 22px}
+.meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:#8A857A;margin-bottom:16px}
+.sentence{font-family:var(--display);font-size:clamp(19px,4.2vw,25px);line-height:1.65;margin:0 0 18px}
+.cue{font-family:var(--mono);font-size:13px;color:var(--azul);background:rgba(27,58,140,.07);padding:2px 7px;white-space:nowrap}
+input.gap{font-family:var(--display);font-size:inherit;font-style:italic;width:15ch;padding:0 4px 2px;margin:0 2px;
+  border:none;border-bottom:2px solid var(--azul-claro);background:rgba(74,111,212,.07);color:var(--azul);text-align:center;outline:none}
+input.gap:focus{border-bottom-color:var(--oro);background:rgba(200,149,43,.12)}
+input.gap:disabled{opacity:1}
+input.gap.good{color:var(--verde);border-bottom-color:var(--verde);background:rgba(46,125,91,.08)}
+input.gap.bad{color:var(--rojo);border-bottom-color:var(--rojo);background:rgba(168,50,50,.08);text-decoration:line-through}
+.accents{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.accents button{font-family:var(--display);font-size:16px;width:34px;height:32px;border:1px solid var(--yeso-2);background:#fff;color:var(--tinta);cursor:pointer;transition:.15s}
+.accents button:hover{border-color:var(--azul);color:var(--azul)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button.primary,button.ghost{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.02em;padding:11px 20px;border:1px solid var(--azul);cursor:pointer;transition:.15s}
+button.primary{background:var(--azul);color:var(--yeso)}
+button.primary:hover{background:#12296B}
+button.ghost{background:transparent;color:var(--azul)}
+button.ghost:hover{background:rgba(27,58,140,.07)}
+button:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.fb{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--azul);background:rgba(27,58,140,.05);display:none}
+.fb.show{display:block}
+.fb.good{border-left-color:var(--verde);background:rgba(46,125,91,.07)}
+.fb.bad{border-left-color:var(--rojo);background:rgba(168,50,50,.06)}
+.fb .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+.fb.good .verdict{color:var(--verde)}
+.fb.bad .verdict{color:var(--rojo)}
+.fb .sol{font-family:var(--display);font-size:19px;margin:0 0 8px}
+.fb .sol b{color:var(--azul);font-style:italic}
+.fb .why{margin:0;font-size:14.5px;color:#3D3C38}
+.score{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:#8A857A;margin-top:14px;letter-spacing:.08em}
+.end{display:none;background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--oro);padding:26px 22px}
+.end.show{display:block}
+.end h2{font-family:var(--display);font-size:30px;margin:0 0 4px}
+.big{font-family:var(--display);font-size:56px;line-height:1;color:var(--azul);margin:10px 0 4px}
+.missed{margin:18px 0 20px;padding:0;list-style:none;max-height:420px;overflow:auto}
+.missed li{border-top:1px solid var(--yeso-2);padding:10px 0;font-size:14.5px}
+.missed .m-s{color:#5A5850}
+.missed .m-a{font-family:var(--display);font-style:italic;color:var(--azul)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Timpul 4 din 5 · los 100 verbos más usados</p>
+  <h1>Pretérito <em>perfecto</em></h1>
+  <p class="lede">100 de fraze. Scrie tot ansamblul: auxiliarul <strong>haber</strong> plus participiul. Participiul nu se acordă niciodată — rămâne invariabil în -ado / -ido, oricare ar fi subiectul.</p>
+  <div class="chips" id="chips"></div>
+  <div class="tiles" id="tiles"></div>
+  <div class="card" id="card">
+    <div class="meta"><span id="counter"></span><span id="tag"></span></div>
+    <p class="sentence" id="sentence"></p>
+    <div class="accents" id="accents"></div>
+    <div class="actions">
+      <button class="primary" id="btnCheck">Verifică</button>
+      <button class="ghost" id="btnShow">Nu știu</button>
+    </div>
+    <div class="fb" id="fb"><p class="verdict" id="verdict"></p><p class="sol" id="sol"></p><p class="why" id="why"></p></div>
+    <div class="score"><span id="scoreL"></span><span id="scoreR"></span></div>
+  </div>
+  <div class="end" id="end">
+    <h2>Gata.</h2>
+    <p class="big" id="finalScore"></p>
+    <p id="finalMsg" style="margin:0 0 6px;color:#5A5850"></p>
+    <ul class="missed" id="missed"></ul>
+    <div class="actions">
+      <button class="primary" id="btnRedo">Reia doar greșelile</button>
+      <button class="ghost" id="btnRestart">Începe de la capăt</button>
+    </div>
+  </div>
+</div>
+<script>
+const ITEMS=[
+/* PARTICIPIO REGULAR */
+{c:"participio regular",s:"Hoy ___ más de diez horas seguidas.",v:"trabajar, yo",a:["he trabajado"],e:"haber la prezent + participiu: he, has, ha, hemos, habéis, han. Verbele în -ar fac -ado."},
+{c:"participio regular",s:"Esta semana nosotros ___ fuera tres veces.",v:"comer",a:["hemos comido"],e:"Verbele în -er și -ir fac -ido: comido."},
+{c:"participio regular",s:"¿___ ya el informe para mañana?",v:"terminar, tú",a:["has terminado"],e:"ya + perfect compus: rezultat valabil acum."},
+{c:"participio regular",s:"Todavía no ___ el paquete que pedí.",v:"llegar",a:["ha llegado"],e:"todavía no cere perfect compus: acțiunea e așteptată în continuare."},
+{c:"participio regular",s:"Este año ellos ___ muchísimo por trabajo.",v:"viajar",a:["han viajado"],e:"este año = unitate de timp încă neîncheiată."},
+{c:"participio regular",s:"Vosotros ___ muy poco este trimestre.",v:"estudiar",a:["habéis estudiado"],e:"habéis, cu accent pe e."},
+{c:"participio regular",s:"Últimamente ___ fatal, me despierto a las cuatro.",v:"dormir, yo",a:["he dormido"],e:"últimamente = perioadă care ajunge până în prezent. Participiul e regulat: dormido."},
+{c:"participio regular",s:"Ya ___ con el casero sobre la calefacción.",v:"hablar, nosotros",a:["hemos hablado"],e:"hemos hablado."},
+{c:"participio regular",s:"Esta mañana ___ el autobús por dos minutos.",v:"perder, yo",a:["he perdido"],e:"esta mañana e încă „azi”, deci perfect compus."},
+{c:"participio regular",s:"¿Alguna vez ___ el ceviche peruano?",v:"probar, tú",a:["has probado"],e:"alguna vez introduce experiența de viață → perfect compus."},
+{c:"participio regular",s:"Nunca ___ en Galicia, pero me encantaría ir.",v:"estar, yo",a:["he estado"],e:"nunca + perfect compus, când se referă la viața de până acum."},
+{c:"participio regular",s:"Todavía no ___ respuesta de la universidad.",v:"recibir, nosotros",a:["hemos recibido"],e:"hemos recibido."},
+{c:"participio regular",s:"Este mes ___ muchísimo más de lo previsto.",v:"gastar, nosotros",a:["hemos gastado"],e:"este mes = perioadă în curs."},
+{c:"participio regular",s:"Hace un rato ___ de casa con mucha prisa.",v:"salir, ella",a:["ha salido"],e:"hace un rato / hace cinco minutos → perfect compus. Participiul lui salir e regulat: salido."},
+{c:"participio regular",s:"¿___ alguna vez en el extranjero?",v:"vivir, vosotros",a:["habéis vivido"],e:"habéis vivido."},
+{c:"participio regular",s:"Hoy no ___ ni un solo café, ¿te lo puedes creer?",v:"beber, yo",a:["he bebido"],e:"hoy → perfect compus."},
+{c:"participio regular",s:"Esta tarde ___ tu hermana dos veces.",v:"llamar",a:["ha llamado"],e:"esta tarde, dacă e încă aceeași zi."},
+{c:"participio regular",s:"Últimamente ellos ___ muchísimo de actitud.",v:"cambiar",a:["han cambiado"],e:"han cambiado."},
+{c:"participio regular",s:"¿Ya ___ los billetes de tren?",v:"comprar, tú",a:["has comprado"],e:"ya + perfect compus."},
+{c:"participio regular",s:"Este fin de semana ___ muchísimo, no hemos salido.",v:"descansar, nosotros",a:["hemos descansado"],e:"hemos descansado."},
+/* PARTICIPIOS IRREGULARES */
+{c:"participios irregulares",s:"¿___ la última película de Almodóvar?",v:"ver, tú",a:["has visto"],e:"Participiu neregulat: visto."},
+{c:"participios irregulares",s:"Esta mañana ___ un plato al fregar.",v:"romper, yo",a:["he roto"],e:"Participiu neregulat: roto."},
+{c:"participios irregulares",s:"Todavía no ___ la tienda, abren a las diez.",v:"abrir, ellos",a:["han abierto"],e:"Participiu neregulat: abierto."},
+{c:"participios irregulares",s:"¿Qué te ___ exactamente sobre el contrato?",v:"decir, él",a:["ha dicho"],e:"Participiu neregulat: dicho."},
+{c:"participios irregulares",s:"Esta semana ___ muchísimo deporte.",v:"hacer, yo",a:["he hecho"],e:"Participiu neregulat: hecho. A nu se confunda cu echado (de la echar)."},
+{c:"participios irregulares",s:"Ella ___ tres libros hasta ahora.",v:"escribir",a:["ha escrito"],e:"Participiu neregulat: escrito."},
+{c:"participios irregulares",s:"Se le ___ el gato esta noche, está destrozada.",v:"morir",a:["ha muerto"],e:"Participiu neregulat: muerto."},
+{c:"participios irregulares",s:"¿Dónde ___ mis gafas de leer?",v:"poner, tú",a:["has puesto"],e:"Participiu neregulat: puesto."},
+{c:"participios irregulares",s:"Ya ___ del viaje, llegamos anoche.",v:"volver, nosotros",a:["hemos vuelto"],e:"Participiu neregulat: vuelto."},
+{c:"participios irregulares",s:"¿___ por fin el problema del contrato?",v:"resolver, vosotros",a:["habéis resuelto"],e:"resolver → resuelto, ca volver → vuelto."},
+{c:"participios irregulares",s:"Todavía no me ___ el dinero que le presté.",v:"devolver, él",a:["ha devuelto"],e:"devolver → devuelto."},
+{c:"participios irregulares",s:"Los científicos ___ una nueva especie de rana.",v:"descubrir",a:["han descubierto"],e:"descubrir → descubierto, format pe cubrir → cubierto."},
+{c:"participios irregulares",s:"La nieve ___ todo el pueblo en una noche.",v:"cubrir",a:["ha cubierto"],e:"cubrir → cubierto."},
+{c:"participios irregulares",s:"Nosotros no ___ nada malo, te lo juro.",v:"hacer",a:["hemos hecho"],e:"hemos hecho."},
+{c:"participios irregulares",s:"¿Ya te lo ___ ellos o te enteras ahora?",v:"decir",a:["han dicho"],e:"han dicho."},
+{c:"participios irregulares",s:"Este año ___ muy poco a los abuelos.",v:"ver, nosotros",a:["hemos visto"],e:"hemos visto."},
+{c:"participios irregulares",s:"Yo nunca ___ una promesa, y lo sabes.",v:"romper",a:["he roto"],e:"he roto."},
+{c:"participios irregulares",s:"¿___ la lavadora antes de salir?",v:"poner, vosotros",a:["habéis puesto"],e:"habéis puesto."},
+{c:"participios irregulares",s:"Ella ___ a fumar después de tres años.",v:"volver",a:["ha vuelto"],e:"volver a + infinitiv = a face din nou ceva."},
+{c:"participios irregulares",s:"Todavía no ___ el correo al jefe.",v:"escribir, yo",a:["he escrito"],e:"he escrito."},
+{c:"participios irregulares",s:"¿Quién ___ la ventana del salón?",v:"abrir",a:["ha abierto"],e:"ha abierto."},
+{c:"participios irregulares",s:"Nos ___ que al final no viene a la cena.",v:"decir, ella",a:["ha dicho"],e:"ha dicho."},
+{c:"participios irregulares",s:"¿___ mis llaves por algún sitio?",v:"ver, vosotros",a:["habéis visto"],e:"habéis visto."},
+{c:"participios irregulares",s:"Últimamente ___ mucha gente en esa carretera.",v:"morir",a:["ha muerto"],e:"ha muerto."},
+/* PARTICIPIOS CON TILDE */
+{c:"participios con tilde",s:"¿___ el artículo que te mandé por correo?",v:"leer, tú",a:["has leído"],e:"Când radicalul se termină în vocală, i-ul poartă accent: leído."},
+{c:"participios con tilde",s:"Todavía no ___ nada de ellos desde el lunes.",v:"oír, nosotros",a:["hemos oído"],e:"oído, cu accent pe i."},
+{c:"participios con tilde",s:"Se me ___ el móvil al suelo dos veces hoy.",v:"caer",a:["ha caído"],e:"caído, cu accent."},
+{c:"participios con tilde",s:"Nunca ___ ese tipo de historias.",v:"creer, yo",a:["he creído"],e:"creído, cu accent."},
+{c:"participios con tilde",s:"¿___ el postre como habíamos quedado?",v:"traer, vosotros",a:["habéis traído"],e:"traído, cu accent pe i."},
+{c:"participios con tilde",s:"Ella ___ su casa prácticamente sola.",v:"construir",a:["ha construido"],e:"Capcană: după u nu se pune accent. Construido, incluido, huido — fără tildă."},
+{c:"participios con tilde",s:"Todavía no ___ las patatas para la tortilla.",v:"freír, ellos",a:["han frito","han freído"],e:"freír are două participii: frito (mai frecvent) și freído. Ambele sunt corecte."},
+{c:"participios con tilde",s:"La imprenta ___ ya mil copias del folleto.",v:"imprimir",a:["ha impreso","ha imprimido"],e:"imprimir are două participii: impreso și imprimido."},
+{c:"participios con tilde",s:"¿Ya te ___ el pedido a casa?",v:"traer, ellos",a:["han traído"],e:"han traído."},
+{c:"participios con tilde",s:"Este año ___ más de veinte libros.",v:"leer, yo",a:["he leído"],e:"he leído."},
+/* MARCADORES */
+{c:"marcadores",s:"Este verano ___ tres veces a la playa.",v:"ir, nosotros",a:["hemos ido"],e:"Participiul lui ir e regulat: ido."},
+{c:"marcadores",s:"Hoy ___ un día rarísimo de principio a fin.",v:"ser",a:["ha sido"],e:"Participiul lui ser e sido."},
+{c:"marcadores",s:"¿Alguna vez ___ a caballo?",v:"montar, tú",a:["has montado"],e:"alguna vez → experiență de viață."},
+{c:"marcadores",s:"Nunca ___ tantos problemas con un piso.",v:"tener, nosotros",a:["hemos tenido"],e:"Participiul lui tener e regulat: tenido."},
+{c:"marcadores",s:"Esta semana no ___ llamarte ni un momento.",v:"poder, yo",a:["he podido"],e:"podido, regulat."},
+{c:"marcadores",s:"Últimamente ___ muchos cambios en la empresa.",v:"haber",a:["ha habido"],e:"Forma impersonală la perfect compus e ha habido, invariabilă."},
+{c:"marcadores",s:"Todavía no ___, y son casi las once.",v:"venir, ellos",a:["han venido"],e:"venido, participiu regulat."},
+{c:"marcadores",s:"Ya ___ las clases, empezaron el lunes.",v:"empezar",a:["han empezado"],e:"ya + perfect compus."},
+{c:"marcadores",s:"¿___ alguna vez en México?",v:"estar, tú",a:["has estado"],e:"has estado."},
+{c:"marcadores",s:"Esta noche no ___ nada, el vecino puso música.",v:"dormir, nosotros",a:["hemos dormido"],e:"esta noche, dacă e noaptea care tocmai s-a încheiat."},
+{c:"marcadores",s:"Hace cinco minutos ___ sin decir adiós.",v:"irse, él",a:["se ha ido"],e:"Pronumele se pune înaintea auxiliarului: se ha ido, niciodată „ha se ido”."},
+{c:"marcadores",s:"En mi vida ___ algo parecido.",v:"ver, yo",a:["he visto"],e:"en mi vida = niciodată, cu perfect compus."},
+{c:"marcadores",s:"Este mes ___ muchísimo, no ha parado.",v:"llover",a:["ha llovido"],e:"Verb meteorologic, doar persoana a III-a: ha llovido."},
+{c:"marcadores",s:"¿Cuántas veces ___ lo mismo esta mañana?",v:"repetir, tú",a:["has repetido"],e:"Participiul e regulat: repetido, fără e → i."},
+{c:"marcadores",s:"Hasta ahora todo ___ bien, toquemos madera.",v:"salir",a:["ha salido"],e:"hasta ahora → perfect compus."},
+{c:"marcadores",s:"Esta mañana ___ a las cinco para coger el vuelo.",v:"levantarse, yo",a:["me he levantado"],e:"Pronumele reflexiv stă înaintea auxiliarului: me he levantado."},
+/* PERFECTO O INDEFINIDO */
+{c:"perfecto o indefinido",s:"Ayer ___ al dentista, por fin.",v:"ir, yo",a:["fui"],e:"ayer e în afara unității de timp actuale → indefinido."},
+{c:"perfecto o indefinido",s:"Hoy ___ al dentista, por fin.",v:"ir, yo",a:["he ido"],e:"hoy include momentul vorbirii → perfect compus. Compară cu fraza anterioară."},
+{c:"perfecto o indefinido",s:"El año pasado ___ de coche.",v:"cambiar, nosotros",a:["cambiamos"],e:"el año pasado = perioadă încheiată → indefinido."},
+{c:"perfecto o indefinido",s:"Este año ___ de coche.",v:"cambiar, nosotros",a:["hemos cambiado"],e:"este año = perioadă în curs → perfect compus."},
+{c:"perfecto o indefinido",s:"Anoche ___ una obra de teatro buenísima.",v:"ver, ellos",a:["vieron"],e:"anoche → indefinido."},
+{c:"perfecto o indefinido",s:"Esta noche ___ una obra de teatro buenísima.",v:"ver, ellos",a:["han visto"],e:"esta noche → perfect compus."},
+{c:"perfecto o indefinido",s:"En 2019 ___ la carrera de Derecho.",v:"empezar, ella",a:["empezó"],e:"An precizat → indefinido."},
+{c:"perfecto o indefinido",s:"Hace un rato ___ de la reunión, pregúntale.",v:"salir, él",a:["ha salido"],e:"hace un rato → perfect compus, foarte aproape de prezent."},
+{c:"perfecto o indefinido",s:"Hace dos años ___ a este barrio.",v:"mudarse, nosotros",a:["nos mudamos"],e:"hace + perioadă lungă → indefinido."},
+{c:"perfecto o indefinido",s:"La semana pasada ___ enferma tres días.",v:"estar, yo",a:["estuve"],e:"la semana pasada → indefinido."},
+{c:"perfecto o indefinido",s:"Esta semana ___ enferma, apenas he salido.",v:"estar, yo",a:["he estado"],e:"esta semana → perfect compus."},
+{c:"perfecto o indefinido",s:"Cervantes ___ el Quijote a principios del siglo XVII.",v:"escribir",a:["escribió"],e:"Istorie și biografii → indefinido."},
+{c:"perfecto o indefinido",s:"Todavía no ___ el libro, me quedan cien páginas.",v:"terminar, yo",a:["he terminado"],e:"todavía no → perfect compus."},
+{c:"perfecto o indefinido",s:"El lunes pasado ___ el tren por un minuto.",v:"perder, nosotros",a:["perdimos"],e:"el lunes pasado → indefinido."},
+{c:"perfecto o indefinido",s:"Nunca ___ el sushi, me da un poco de reparo.",v:"probar, yo",a:["he probado"],e:"nunca, ca experiență de viață → perfect compus."},
+{c:"perfecto o indefinido",s:"De pequeño ___ tres años en Argentina.",v:"vivir, él",a:["vivió"],e:"Etapă închisă din trecut → indefinido."},
+{c:"perfecto o indefinido",s:"¿Ya ___ la maleta o lo dejas para mañana?",v:"hacer, tú",a:["has hecho"],e:"ya → perfect compus."},
+{c:"perfecto o indefinido",s:"Anteayer ___ para avisar de que no venía.",v:"llamar, ella",a:["llamó"],e:"anteayer → indefinido."},
+{c:"perfecto o indefinido",s:"Últimamente no ___ tiempo para nada.",v:"tener, nosotros",a:["hemos tenido"],e:"últimamente → perfect compus."},
+{c:"perfecto o indefinido",s:"En abril ___ mi sobrina pequeña.",v:"nacer",a:["nació"],e:"Lună precizată, dintr-un an încheiat → indefinido."},
+{c:"perfecto o indefinido",s:"Esta tarde ___ la lavadora otra vez.",v:"romperse",a:["se ha roto"],e:"esta tarde → perfect compus: se ha roto."},
+{c:"perfecto o indefinido",s:"El sábado pasado ___ la lavadora.",v:"romperse",a:["se rompió"],e:"el sábado pasado → indefinido: se rompió."},
+{c:"perfecto o indefinido",s:"¿___ alguna vez algo de Cortázar?",v:"leer, tú",a:["has leído"],e:"alguna vez → perfect compus."},
+{c:"perfecto o indefinido",s:"En 1998 ___ a mi mujer en una boda.",v:"conocer, yo",a:["conocí"],e:"An precizat → indefinido. conocí = am cunoscut, am făcut cunoștință."},
+{c:"perfecto o indefinido",s:"Hoy todavía no ___ nada, estoy muerta de hambre.",v:"comer, nosotros",a:["hemos comido"],e:"hoy + todavía no → perfect compus."},
+{c:"perfecto o indefinido",s:"Ayer no ___ nada en todo el día.",v:"comer, nosotros",a:["comimos"],e:"ayer → indefinido."},
+{c:"perfecto o indefinido",s:"Este mes ___ los precios otra vez.",v:"subir, ellos",a:["han subido"],e:"este mes → perfect compus."},
+{c:"perfecto o indefinido",s:"El mes pasado ___ los precios de la luz.",v:"subir, ellos",a:["subieron"],e:"el mes pasado → indefinido."},
+{c:"perfecto o indefinido",s:"Nunca ___ a Japón, pero está en la lista.",v:"ir, nosotros",a:["hemos ido"],e:"nunca, fără limită temporală → perfect compus."},
+{c:"perfecto o indefinido",s:"En 2010 ___ a Japón por primera vez.",v:"ir, nosotros",a:["fuimos"],e:"An precizat → indefinido: fuimos."}
+];
+const CATS=[{id:"todos",label:"toate (100)"},{id:"participio regular",label:"participio regular"},{id:"participios irregulares",label:"participios irregulares"},{id:"participios con tilde",label:"participios con tilde"},{id:"marcadores",label:"marcadores"},{id:"perfecto o indefinido",label:"perfecto o indefinido"}];
+const ACCENTS=["á","é","í","ó","ú","ñ","ü","¿","¡"];
+let deck=[],idx=0,checked=false,correct=0,missed=[],cat="todos",shuffled=false;
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().trim().replace(/\s+/g," ").normalize("NFD").replace(/[\u0300-\u0302\u0304-\u036f]/g,"").replace(/\u0303/g,"~").normalize("NFC");
+function pool(){const l=cat==="todos"?ITEMS.slice():ITEMS.filter(i=>i.c===cat);if(shuffled)for(let i=l.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[l[i],l[j]]=[l[j],l[i]];}return l;}
+function buildChips(){const c=$("chips");c.innerHTML="";CATS.forEach(k=>{const b=document.createElement("button");b.textContent=k.label;b.type="button";b.setAttribute("aria-pressed",String(k.id===cat));b.addEventListener("click",()=>{cat=k.id;buildChips();start(pool());});c.appendChild(b);});const s=document.createElement("button");s.type="button";s.className="shuffle";s.textContent=shuffled?"ordine amestecată":"amestecă ordinea";s.addEventListener("click",()=>{shuffled=!shuffled;buildChips();start(pool());});c.appendChild(s);}
+function buildAccents(){$("accents").innerHTML="";ACCENTS.forEach(ch=>{const b=document.createElement("button");b.textContent=ch;b.type="button";b.addEventListener("click",()=>{const i=document.querySelector("input.gap");if(!i||i.disabled)return;const p=i.selectionStart??i.value.length;i.value=i.value.slice(0,p)+ch+i.value.slice(i.selectionEnd??p);i.focus();i.setSelectionRange(p+1,p+1);});$("accents").appendChild(b);});}
+function drawTiles(){const t=$("tiles");t.innerHTML="";deck.forEach((it,i)=>{const d=document.createElement("div");d.className="tile"+(it.res==="ok"?" ok":it.res==="no"?" no":"")+(i===idx?" now":"");t.appendChild(d);});}
+function render(){if(idx>=deck.length)return finish();const it=deck[idx];checked=false;
+$("counter").textContent=`Fraza ${idx+1} / ${deck.length}`;$("tag").textContent=it.c;
+const parts=it.s.split("___");const p=$("sentence");p.innerHTML="";p.append(document.createTextNode(parts[0]));
+const inp=document.createElement("input");inp.className="gap";inp.type="text";inp.autocomplete="off";inp.spellcheck=false;inp.setAttribute("aria-label","forma verbului");p.append(inp);
+const cue=document.createElement("span");cue.className="cue";cue.textContent="("+it.v+")";p.append(document.createTextNode(" "));p.append(cue);p.append(document.createTextNode(parts[1]||""));
+$("fb").className="fb";$("btnCheck").textContent="Verifică";$("btnShow").style.display="inline-block";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;drawTiles();inp.focus();}
+function check(reveal){const it=deck[idx],inp=document.querySelector("input.gap");if(!inp)return;const val=inp.value;
+if(!reveal&&!val.trim()){inp.focus();return;}
+const ok=!reveal&&it.a.some(x=>norm(x)===norm(val));
+const exact=!reveal&&it.a.some(x=>x.toLowerCase()===val.toLowerCase().trim().replace(/\s+/g," "));
+inp.disabled=true;inp.classList.add(ok?"good":"bad");if(reveal)inp.value="—";
+it.res=ok?"ok":"no";if(ok)correct++;else missed.push(it);
+$("fb").className="fb show "+(ok?"good":"bad");
+$("verdict").textContent=ok?(exact?"Corect":"Corect — atenție la accent"):(reveal?"Răspunsul":"Greșit");
+$("sol").innerHTML="→ <b>"+it.a.join(" / ")+"</b>";$("why").innerHTML=it.e;
+$("btnCheck").textContent=(idx===deck.length-1)?"Vezi rezultatul":"Următoarea";$("btnShow").style.display="none";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;checked=true;drawTiles();$("btnCheck").focus();}
+function finish(){$("card").style.display="none";$("end").classList.add("show");
+const pct=Math.round(correct/deck.length*100);$("finalScore").textContent=`${correct}/${deck.length}`;
+$("finalMsg").textContent=pct>=90?"Perfectul compus e clar. Rămâne pluscuamperfecto.":pct>=70?"Bine. Recapitulează participiile neregulate din lista de mai jos.":"Reia categoria participios irregulares, acolo se pierd punctele.";
+const ul=$("missed");ul.innerHTML="";if(!missed.length)ul.innerHTML="<li>Nicio greșeală.</li>";
+missed.forEach(m=>{const li=document.createElement("li");li.innerHTML=`<span class="m-s">${m.s.replace("___","______")} (${m.v})</span><br><span class="m-a">${m.a.join(" / ")}</span>`;ul.appendChild(li);});
+$("btnRedo").style.display=missed.length?"inline-block":"none";drawTiles();}
+function start(list){deck=list.map(o=>({...o,res:null}));idx=0;correct=0;missed=[];$("card").style.display="block";$("end").classList.remove("show");render();}
+$("btnCheck").addEventListener("click",()=>{checked?(idx++,render()):check(false);});
+$("btnShow").addEventListener("click",()=>check(true));
+$("btnRedo").addEventListener("click",()=>start(missed.slice()));
+$("btnRestart").addEventListener("click",()=>start(pool()));
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checked?(idx++,render()):check(false);}});
+buildChips();buildAccents();start(pool());
+</script>
+</body>
+</html>

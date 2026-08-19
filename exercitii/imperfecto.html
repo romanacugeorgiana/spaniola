@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pretérito imperfecto — 100 de exerciții</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#1B3A8C;--azul-claro:#4A6FD4;--yeso:#EFE9DE;--yeso-2:#E4DCCD;--tinta:#17181C;
+--verde:#2E7D5B;--rojo:#A83232;--oro:#C8952B;
+--display:'Fraunces',Georgia,serif;--body:'Karla','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--yeso);color:var(--tinta);font-family:var(--body);line-height:1.5;padding:28px 18px 60px;display:flex;justify-content:center}
+.wrap{width:100%;max-width:680px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--azul);margin:0 0 6px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,6.6vw,50px);line-height:.98;margin:0 0 8px;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--azul)}
+.lede{margin:0 0 18px;max-width:48ch;font-size:15px;color:#4B4A46}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+.chips button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;
+  border:1px solid var(--yeso-2);background:transparent;color:#6E6A61;cursor:pointer;transition:.15s}
+.chips button:hover{border-color:var(--azul);color:var(--azul)}
+.chips button[aria-pressed="true"]{background:var(--azul);border-color:var(--azul);color:var(--yeso)}
+.chips button.shuffle{border-style:dashed;color:var(--oro);border-color:var(--oro)}
+.tiles{display:flex;flex-wrap:wrap;gap:3px;margin:0 0 22px}
+.tile{width:13px;height:13px;border:1px solid var(--yeso-2);background:transparent;transition:background .25s,border-color .25s}
+.tile.ok{border-color:var(--azul);background:
+  linear-gradient(45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),
+  linear-gradient(-45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),var(--azul)}
+.tile.no{background:var(--rojo);border-color:var(--rojo);opacity:.75}
+.tile.now{border-color:var(--oro);box-shadow:inset 0 0 0 2px var(--oro)}
+.card{background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--azul);padding:26px 22px 22px}
+.meta{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:#8A857A;margin-bottom:16px}
+.sentence{font-family:var(--display);font-size:clamp(19px,4.2vw,25px);line-height:1.65;margin:0 0 18px}
+.cue{font-family:var(--mono);font-size:13px;color:var(--azul);background:rgba(27,58,140,.07);padding:2px 7px;white-space:nowrap}
+input.gap{font-family:var(--display);font-size:inherit;font-style:italic;width:12ch;padding:0 4px 2px;margin:0 2px;
+  border:none;border-bottom:2px solid var(--azul-claro);background:rgba(74,111,212,.07);color:var(--azul);text-align:center;outline:none}
+input.gap:focus{border-bottom-color:var(--oro);background:rgba(200,149,43,.12)}
+input.gap:disabled{opacity:1}
+input.gap.good{color:var(--verde);border-bottom-color:var(--verde);background:rgba(46,125,91,.08)}
+input.gap.bad{color:var(--rojo);border-bottom-color:var(--rojo);background:rgba(168,50,50,.08);text-decoration:line-through}
+.accents{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.accents button{font-family:var(--display);font-size:16px;width:34px;height:32px;border:1px solid var(--yeso-2);background:#fff;color:var(--tinta);cursor:pointer;transition:.15s}
+.accents button:hover{border-color:var(--azul);color:var(--azul)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button.primary,button.ghost{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.02em;padding:11px 20px;border:1px solid var(--azul);cursor:pointer;transition:.15s}
+button.primary{background:var(--azul);color:var(--yeso)}
+button.primary:hover{background:#12296B}
+button.ghost{background:transparent;color:var(--azul)}
+button.ghost:hover{background:rgba(27,58,140,.07)}
+button:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.fb{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--azul);background:rgba(27,58,140,.05);display:none}
+.fb.show{display:block}
+.fb.good{border-left-color:var(--verde);background:rgba(46,125,91,.07)}
+.fb.bad{border-left-color:var(--rojo);background:rgba(168,50,50,.06)}
+.fb .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+.fb.good .verdict{color:var(--verde)}
+.fb.bad .verdict{color:var(--rojo)}
+.fb .sol{font-family:var(--display);font-size:19px;margin:0 0 8px}
+.fb .sol b{color:var(--azul);font-style:italic}
+.fb .why{margin:0;font-size:14.5px;color:#3D3C38}
+.score{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:#8A857A;margin-top:14px;letter-spacing:.08em}
+.end{display:none;background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--oro);padding:26px 22px}
+.end.show{display:block}
+.end h2{font-family:var(--display);font-size:30px;margin:0 0 4px}
+.big{font-family:var(--display);font-size:56px;line-height:1;color:var(--azul);margin:10px 0 4px}
+.missed{margin:18px 0 20px;padding:0;list-style:none;max-height:420px;overflow:auto}
+.missed li{border-top:1px solid var(--yeso-2);padding:10px 0;font-size:14.5px}
+.missed .m-s{color:#5A5850}
+.missed .m-a{font-family:var(--display);font-style:italic;color:var(--azul)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Timpul 2 din 5 · los 100 verbos más usados</p>
+  <h1>Pretérito <em>imperfecto</em></h1>
+  <p class="lede">100 de fraze. Morfologia e simplă — doar trei verbe neregulate — deci dificultatea reală e la accente (<strong>-ábamos</strong>, <strong>-ía</strong>) și la ultima categorie, unde tu decizi între imperfecto și indefinido.</p>
+  <div class="chips" id="chips"></div>
+  <div class="tiles" id="tiles"></div>
+  <div class="card" id="card">
+    <div class="meta"><span id="counter"></span><span id="tag"></span></div>
+    <p class="sentence" id="sentence"></p>
+    <div class="accents" id="accents"></div>
+    <div class="actions">
+      <button class="primary" id="btnCheck">Verifică</button>
+      <button class="ghost" id="btnShow">Nu știu</button>
+    </div>
+    <div class="fb" id="fb"><p class="verdict" id="verdict"></p><p class="sol" id="sol"></p><p class="why" id="why"></p></div>
+    <div class="score"><span id="scoreL"></span><span id="scoreR"></span></div>
+  </div>
+  <div class="end" id="end">
+    <h2>Gata.</h2>
+    <p class="big" id="finalScore"></p>
+    <p id="finalMsg" style="margin:0 0 6px;color:#5A5850"></p>
+    <ul class="missed" id="missed"></ul>
+    <div class="actions">
+      <button class="primary" id="btnRedo">Reia doar greșelile</button>
+      <button class="ghost" id="btnRestart">Începe de la capăt</button>
+    </div>
+  </div>
+</div>
+<script>
+const ITEMS=[
+/* -AR */
+{c:"verbos en -ar",s:"Cuando era niño, ___ al fútbol todas las tardes.",v:"jugar, yo",a:["jugaba"],e:"Verbele cu schimbare vocalică la prezent sunt perfect regulate la imperfect: jugaba, nu „juegaba”."},
+{c:"verbos en -ar",s:"Antes nosotros ___ por teléfono cada semana.",v:"hablar",a:["hablábamos"],e:"Forma de nosotros e singura accentuată la -ar: hablábamos."},
+{c:"verbos en -ar",s:"Mi padre ___ en una fábrica de coches.",v:"trabajar",a:["trabajaba"],e:"Terminații -ar: aba, abas, aba, ábamos, abais, aban."},
+{c:"verbos en -ar",s:"De pequeña ___ piano tres tardes por semana.",v:"estudiar, yo",a:["estudiaba"],e:"Persoana I și a III-a sunt identice: estudiaba."},
+{c:"verbos en -ar",s:"Vosotros ___ siempre tarde a las reuniones.",v:"llegar",a:["llegabais"],e:"Terminația de vosotros: -abais, fără accent grafic."},
+{c:"verbos en -ar",s:"En aquella época ella ___ el metro para ir al trabajo.",v:"tomar",a:["tomaba"],e:"en aquella época e o marcă tipică de imperfect."},
+{c:"verbos en -ar",s:"Los domingos nosotros ___ el día entero en el campo.",v:"pasar",a:["pasábamos"],e:"pasábamos, cu accent pe a."},
+{c:"verbos en -ar",s:"Mis abuelos ___ canciones antiguas en las fiestas.",v:"cantar",a:["cantaban"],e:"Persoana a III-a plural: -aban."},
+{c:"verbos en -ar",s:"Cuando vivía en Sevilla, ___ a las seis de la mañana.",v:"levantarse, yo",a:["me levantaba"],e:"Reflexiv: me levantaba. Pronumele se scrie separat, înaintea verbului."},
+{c:"verbos en -ar",s:"Antes la gente ___ el pan cada mañana.",v:"comprar",a:["compraba"],e:"Obicei din trecut, fără limită precisă → imperfect."},
+{c:"verbos en -ar",s:"Mientras yo ___ el escaparate, ella entró en la tienda.",v:"mirar",a:["miraba"],e:"mientras + imperfect: acțiune-cadru întreruptă de alta."},
+{c:"verbos en -ar",s:"De niños ___ el autobús en aquella esquina.",v:"esperar, nosotros",a:["esperábamos"],e:"esperábamos, accentuat."},
+{c:"verbos en -ar",s:"En verano ___ siempre en la terraza.",v:"cenar, nosotros",a:["cenábamos"],e:"siempre + imperfect: acțiune repetată."},
+{c:"verbos en -ar",s:"Aquel día ___ desde primera hora de la mañana.",v:"nevar",a:["nevaba"],e:"Verbele meteorologice se folosesc doar la persoana a III-a: nevaba, llovía, granizaba."},
+{c:"verbos en -ar",s:"Vosotros ___ mucho antes de tener hijos.",v:"viajar",a:["viajabais"],e:"-abais pentru vosotros."},
+{c:"verbos en -ar",s:"Mi hermana ___ a mi madre en la tienda los sábados.",v:"ayudar",a:["ayudaba"],e:"Acțiune obișnuită în trecut."},
+{c:"verbos en -ar",s:"Yo siempre ___ hasta diez antes de contestar.",v:"contar",a:["contaba"],e:"contar diftonghează la prezent (cuento), dar nu la imperfect: contaba."},
+{c:"verbos en -ar",s:"En aquel colegio ___ las clases a las ocho.",v:"empezar, nosotros",a:["empezábamos"],e:"empezábamos, fără diftong și fără modificare ortografică."},
+{c:"verbos en -ar",s:"Ella ___ a su madre todas las noches.",v:"llamar",a:["llamaba"],e:"todas las noches → acțiune repetată."},
+{c:"verbos en -ar",s:"Antes me ___ mucho el chocolate negro.",v:"gustar",a:["gustaba"],e:"Se acordă cu lucrul care place: me gustaba el chocolate, me gustaban los dulces."},
+{c:"verbos en -ar",s:"Los turistas ___ sitio sin reservar con antelación.",v:"encontrar",a:["encontraban"],e:"Fără diftong la imperfect: encontraban."},
+{c:"verbos en -ar",s:"Yo ___ solo un café antes de salir de casa.",v:"desayunar",a:["desayunaba"],e:"Obicei din trecut."},
+/* -ER / -IR */
+{c:"verbos en -er, -ir",s:"Cuando ___ veinte años, vivía en Barcelona.",v:"tener, yo",a:["tenía"],e:"Terminații -er / -ir: ía, ías, ía, íamos, íais, ían. Toate poartă accent."},
+{c:"verbos en -er, -ir",s:"Antes ___ mucho más frío en invierno.",v:"hacer",a:["hacía"],e:"hacía, cu accent pe i."},
+{c:"verbos en -er, -ir",s:"No ___ salir de casa porque llovía sin parar.",v:"poder, nosotros",a:["podíamos"],e:"podíamos. Verbele cu diftong la prezent sunt regulate aici."},
+{c:"verbos en -er, -ir",s:"Ella ___ estudiar Medicina, pero cambió de idea.",v:"querer",a:["quería"],e:"quería exprimă intenția, fără să spună dacă s-a realizat."},
+{c:"verbos en -er, -ir",s:"Yo no ___ que estabas enferma, lo siento.",v:"saber",a:["sabía"],e:"La imperfect, saber înseamnă „a ști”; la indefinido (supe) înseamnă „a afla”."},
+{c:"verbos en -er, -ir",s:"Siempre nos ___ la misma historia.",v:"decir, él",a:["decía"],e:"decía, complet regulat la imperfect."},
+{c:"verbos en -er, -ir",s:"Mis tíos ___ en un pueblo de la costa gallega.",v:"vivir",a:["vivían"],e:"-ían pentru persoana a III-a plural."},
+{c:"verbos en -er, -ir",s:"Los viernes ___ a tomar algo después del trabajo.",v:"salir, nosotros",a:["salíamos"],e:"salíamos, cu accent pe i."},
+{c:"verbos en -er, -ir",s:"Vosotros ___ a vernos cada Navidad.",v:"venir",a:["veníais"],e:"veníais: accent pe i, terminația -íais."},
+{c:"verbos en -er, -ir",s:"Mi abuelo ___ todas las cartas a mano.",v:"escribir",a:["escribía"],e:"Regulat: escribía."},
+{c:"verbos en -er, -ir",s:"Antes yo ___ mucho más que ahora.",v:"leer",a:["leía"],e:"leía, cu accent pe i. Fără y, spre deosebire de indefinido (leyó)."},
+{c:"verbos en -er, -ir",s:"Los niños ___ la siesta después de comer.",v:"dormir",a:["dormían"],e:"Fără schimbare vocalică: dormían, nu „durmían”."},
+{c:"verbos en -er, -ir",s:"Ella siempre ___ lo mismo en aquel restaurante.",v:"pedir",a:["pedía"],e:"pedía, fără e → i."},
+{c:"verbos en -er, -ir",s:"Nosotros no ___ a nadie en aquella fiesta.",v:"conocer",a:["conocíamos"],e:"conocíamos. La imperfect nu apare -zco."},
+{c:"verbos en -er, -ir",s:"La casa ___ mucho más grande por dentro.",v:"parecer",a:["parecía"],e:"Descriere → imperfect."},
+{c:"verbos en -er, -ir",s:"Antes ___ una farmacia en esta esquina.",v:"haber",a:["había"],e:"Forma impersonală la imperfect e había, invariabilă: había una farmacia, había tres bares."},
+{c:"verbos en -er, -ir",s:"Yo ___ nerviosa cada vez que hablaba en público.",v:"ponerse",a:["me ponía"],e:"Reflexiv: me ponía. ponerse + adjectiv = schimbare de stare."},
+{c:"verbos en -er, -ir",s:"Ellos ___ el pescado directamente del puerto.",v:"traer",a:["traían"],e:"traían, regulat."},
+{c:"verbos en -er, -ir",s:"Desde mi habitación ___ el mar por las noches.",v:"oír, yo",a:["oía"],e:"oía. Neregularitățile lui oír dispar la imperfect."},
+{c:"verbos en -er, -ir",s:"Nosotros ___ en casa de mi abuela todos los domingos.",v:"comer",a:["comíamos"],e:"comíamos, cu accent pe i."},
+{c:"verbos en -er, -ir",s:"El tren ___ despacio por la ladera de la montaña.",v:"subir",a:["subía"],e:"Descriere a unei acțiuni în desfășurare."},
+{c:"verbos en -er, -ir",s:"Vosotros ___ demasiado café en aquella época.",v:"beber",a:["bebíais"],e:"-íais pentru vosotros."},
+/* SER, IR, VER */
+{c:"ser, ir, ver",s:"Cuando yo ___ pequeña, tenía el pelo rizado.",v:"ser",a:["era"],e:"ser: era, eras, era, éramos, erais, eran."},
+{c:"ser, ir, ver",s:"Nosotros ___ los únicos extranjeros del grupo.",v:"ser",a:["éramos"],e:"éramos, cu accent pe e."},
+{c:"ser, ir, ver",s:"Vosotros ___ muy amigos entonces, ¿no?",v:"ser",a:["erais"],e:"erais, fără accent grafic."},
+{c:"ser, ir, ver",s:"___ las tres de la mañana cuando por fin llegó.",v:"ser",a:["eran"],e:"Ora în trecut se dă la imperfect: eran las tres."},
+{c:"ser, ir, ver",s:"Yo ___ al colegio andando, estaba a diez minutos.",v:"ir",a:["iba"],e:"ir: iba, ibas, iba, íbamos, ibais, iban."},
+{c:"ser, ir, ver",s:"Nosotros ___ a la playa cada verano.",v:"ir",a:["íbamos"],e:"íbamos, cu accent pe i — singura formă accentuată."},
+{c:"ser, ir, ver",s:"Vosotros ___ siempre juntos a todas partes.",v:"ir",a:["ibais"],e:"ibais, fără accent."},
+{c:"ser, ir, ver",s:"Mis padres ___ al cine todos los sábados.",v:"ir",a:["iban"],e:"iban."},
+{c:"ser, ir, ver",s:"Yo ___ a mis primos solo en verano.",v:"ver",a:["veía"],e:"ver păstrează e-ul din radical: veía, veías, veía."},
+{c:"ser, ir, ver",s:"Nosotros ___ esa serie todas las noches.",v:"ver",a:["veíamos"],e:"veíamos, nu „víamos”."},
+{c:"ser, ir, ver",s:"Desde aquella ventana se ___ toda la ciudad.",v:"ver",a:["veía"],e:"Construcție impersonală cu se: se veía."},
+{c:"ser, ir, ver",s:"Ellos no ___ bien desde la última fila.",v:"ver",a:["veían"],e:"veían."},
+{c:"ser, ir, ver",s:"Antes ella ___ profesora de instituto.",v:"ser",a:["era"],e:"Profesie în trecut, ca stare de durată → era."},
+{c:"ser, ir, ver",s:"Vosotros ___ demasiado la tele, decía mi madre.",v:"ver",a:["veíais"],e:"veíais."},
+{c:"ser, ir, ver",s:"___ a llamarte, pero se me hizo tardísimo.",v:"ir, yo",a:["iba"],e:"iba a + infinitiv = intenție nerealizată."},
+{c:"ser, ir, ver",s:"Aquel ___ el mejor bar del barrio.",v:"ser",a:["era"],e:"Descriere / apreciere despre trecut."},
+/* USOS Y PERÍFRASIS */
+{c:"usos y perífrasis",s:"Cuando sonó el teléfono, yo ___ duchándome.",v:"estar",a:["estaba"],e:"estar la imperfect + gerunziu = acțiune în plină desfășurare, întreruptă de alta."},
+{c:"usos y perífrasis",s:"___ a salir, pero de repente empezó a llover.",v:"ir, nosotros",a:["íbamos"],e:"íbamos a + infinitiv: plan care nu s-a realizat."},
+{c:"usos y perífrasis",s:"Antes ___ desayunar en el bar de abajo.",v:"soler, yo",a:["solía"],e:"soler + infinitiv = a obișnui să. Se folosește aproape exclusiv la prezent și imperfect."},
+{c:"usos y perífrasis",s:"Perdone, ___ pedirle un favor, señor Ruiz.",v:"querer, yo",a:["quería"],e:"Imperfectul de politețe: quería / venía suna mai puțin direct decât quiero."},
+{c:"usos y perífrasis",s:"Buenos días, ___ a preguntar por el anuncio del piso.",v:"venir, yo",a:["venía"],e:"Tot imperfect de politețe: venía a preguntar."},
+{c:"usos y perífrasis",s:"___ dos años que no nos veíamos.",v:"hacer",a:["hacía"],e:"hacía + perioadă = de câtă vreme dura situația. Corespunde lui hace la prezent."},
+{c:"usos y perífrasis",s:"Ellos ___ discutiendo cuando entré en el despacho.",v:"estar",a:["estaban"],e:"estaban + gerunziu, cadrul întrerupt de entré."},
+{c:"usos y perífrasis",s:"Mi madre ___ contarnos un cuento antes de dormir.",v:"soler",a:["solía"],e:"solía + infinitiv exprimă obiceiul."},
+{c:"usos y perífrasis",s:"___ a decirte exactamente lo mismo.",v:"ir, yo",a:["iba"],e:"iba a + infinitiv."},
+{c:"usos y perífrasis",s:"Nosotros ___ esperando desde hacía casi una hora.",v:"estar",a:["estábamos"],e:"estábamos, cu accent pe a."},
+{c:"usos y perífrasis",s:"En aquella época ella ___ el pelo muy corto.",v:"llevar",a:["llevaba"],e:"Descriere fizică în trecut → imperfect."},
+{c:"usos y perífrasis",s:"Buenas tardes, ¿qué ___ usted?",v:"desear",a:["deseaba"],e:"Imperfect de politețe, tipic în magazine: ¿qué deseaba? în loc de ¿qué desea?"},
+/* IMPERFECTO O INDEFINIDO */
+{c:"imperfecto o indefinido",s:"Ayer ___ al médico porque me dolía la espalda.",v:"ir, yo",a:["fui"],e:"ayer + acțiune punctuală, încheiată → indefinido: fui."},
+{c:"imperfecto o indefinido",s:"Cuando ___, la fiesta ya había terminado.",v:"llegar, nosotros",a:["llegamos"],e:"Acțiune punctuală care marchează un moment → indefinido: llegamos."},
+{c:"imperfecto o indefinido",s:"Mientras ___ la cena, sonó el timbre.",v:"cocinar, yo",a:["cocinaba"],e:"mientras introduce cadrul în desfășurare → imperfect."},
+{c:"imperfecto o indefinido",s:"El verano pasado ___ Portugal en coche.",v:"visitar, nosotros",a:["visitamos"],e:"el verano pasado = unitate de timp încheiată → indefinido."},
+{c:"imperfecto o indefinido",s:"De niña ___ el pelo larguísimo.",v:"tener, yo",a:["tenía"],e:"Descriere a unei etape din trecut → imperfect."},
+{c:"imperfecto o indefinido",s:"Aquella tarde ___ vender la casa del pueblo.",v:"decidir, ellos",a:["decidieron"],e:"O decizie e un act punctual → indefinido."},
+{c:"imperfecto o indefinido",s:"Todos los días ___ en el mismo bar del barrio.",v:"comer, él",a:["comía"],e:"todos los días = obicei repetat → imperfect."},
+{c:"imperfecto o indefinido",s:"Anoche ___ una película malísima.",v:"ver, nosotros",a:["vimos"],e:"anoche = moment încheiat → indefinido: vimos."},
+{c:"imperfecto o indefinido",s:"La casa ___ pequeña, pero muy luminosa.",v:"ser",a:["era"],e:"Descrierea unui lucru → imperfect."},
+{c:"imperfecto o indefinido",s:"En 2015 ___ a trabajar en esta empresa.",v:"empezar, yo",a:["empecé"],e:"Dată exactă → indefinido, cu z → c: empecé."},
+{c:"imperfecto o indefinido",s:"Mientras ella ___, nadie se atrevía a interrumpir.",v:"hablar",a:["hablaba"],e:"Două acțiuni paralele în desfășurare → imperfect."},
+{c:"imperfecto o indefinido",s:"De repente ___ todas las luces del edificio.",v:"apagarse",a:["se apagaron"],e:"de repente marchează ruptura, acțiune punctuală → indefinido."},
+{c:"imperfecto o indefinido",s:"Cuando era estudiante, ___ con tres compañeros.",v:"vivir, yo",a:["vivía"],e:"Situație de durată, fără limite precise → imperfect."},
+{c:"imperfecto o indefinido",s:"El lunes pasado ___ el vuelo por diez minutos.",v:"perder, nosotros",a:["perdimos"],e:"el lunes pasado + fapt punctual → indefinido."},
+{c:"imperfecto o indefinido",s:"Siempre que ___, nos llamaba por teléfono.",v:"poder, él",a:["podía"],e:"siempre que = repetiție → imperfect, în acord cu llamaba."},
+{c:"imperfecto o indefinido",s:"Aquel día ___ un frío insoportable.",v:"hacer",a:["hacía"],e:"Vremea ca decor al povestirii → imperfect, chiar dacă ziua e precizată."},
+{c:"imperfecto o indefinido",s:"Mi madre ___ en un pueblo de Cáceres, en 1954.",v:"nacer",a:["nació"],e:"Datele biografice cer indefinido: nació."},
+{c:"imperfecto o indefinido",s:"Los niños ___ en el patio cuando empezó a llover.",v:"jugar",a:["jugaban"],e:"Acțiunea-cadru întreruptă → imperfect."},
+{c:"imperfecto o indefinido",s:"¿Cuántos años ___ cuando te mudaste a Madrid?",v:"tener, tú",a:["tenías"],e:"Vârsta ca stare la un moment din trecut → imperfect."},
+{c:"imperfecto o indefinido",s:"Ayer ___ toda la tarde en la biblioteca.",v:"estar, yo",a:["estuve"],e:"Perioadă delimitată și încheiată → indefinido: estuve."},
+{c:"imperfecto o indefinido",s:"Antes esta calle ___ de otra manera.",v:"llamarse",a:["se llamaba"],e:"antes + situație de durată → imperfect."},
+{c:"imperfecto o indefinido",s:"El accidente ___ a las siete de la mañana.",v:"ocurrir",a:["ocurrió"],e:"Eveniment punctual, cu oră precisă → indefinido."},
+{c:"imperfecto o indefinido",s:"Mientras nosotros ___, alguien entró en casa.",v:"dormir",a:["dormíamos"],e:"mientras + imperfect: dormíamos, fără o → u."},
+{c:"imperfecto o indefinido",s:"La semana pasada ___ a tu hermana en una cena.",v:"conocer, yo",a:["conocí"],e:"La indefinido, conocer înseamnă „a face cunoștință”. La imperfect ar însemna „o știam deja”."},
+{c:"imperfecto o indefinido",s:"Nadie ___ qué hacer en aquel momento.",v:"saber",a:["sabía"],e:"Stare mentală de fundal → imperfect."},
+{c:"imperfecto o indefinido",s:"Cuando terminó la carrera, ___ a vivir a Londres.",v:"irse, ella",a:["se fue"],e:"Două acțiuni punctuale succesive → indefinido: se fue."},
+{c:"imperfecto o indefinido",s:"En aquel entonces no ___ tantos coches en la ciudad.",v:"haber",a:["había"],e:"Descrierea unei epoci → había, forma impersonală."},
+{c:"imperfecto o indefinido",s:"Le ___ las gracias y me marché sin decir nada más.",v:"dar, yo",a:["di"],e:"Acțiune punctuală → indefinido: di, fără accent grafic."}
+];
+const CATS=[{id:"todos",label:"toate (100)"},{id:"verbos en -ar",label:"verbos en -ar"},{id:"verbos en -er, -ir",label:"-er / -ir"},{id:"ser, ir, ver",label:"ser, ir, ver"},{id:"usos y perífrasis",label:"usos y perífrasis"},{id:"imperfecto o indefinido",label:"imperfecto o indefinido"}];
+const ACCENTS=["á","é","í","ó","ú","ñ","ü","¿","¡"];
+let deck=[],idx=0,checked=false,correct=0,missed=[],cat="todos",shuffled=false;
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().trim().replace(/\s+/g," ").normalize("NFD").replace(/[\u0300-\u0302\u0304-\u036f]/g,"").replace(/\u0303/g,"~").normalize("NFC");
+function pool(){const l=cat==="todos"?ITEMS.slice():ITEMS.filter(i=>i.c===cat);if(shuffled)for(let i=l.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[l[i],l[j]]=[l[j],l[i]];}return l;}
+function buildChips(){const c=$("chips");c.innerHTML="";CATS.forEach(k=>{const b=document.createElement("button");b.textContent=k.label;b.type="button";b.setAttribute("aria-pressed",String(k.id===cat));b.addEventListener("click",()=>{cat=k.id;buildChips();start(pool());});c.appendChild(b);});const s=document.createElement("button");s.type="button";s.className="shuffle";s.textContent=shuffled?"ordine amestecată":"amestecă ordinea";s.addEventListener("click",()=>{shuffled=!shuffled;buildChips();start(pool());});c.appendChild(s);}
+function buildAccents(){$("accents").innerHTML="";ACCENTS.forEach(ch=>{const b=document.createElement("button");b.textContent=ch;b.type="button";b.addEventListener("click",()=>{const i=document.querySelector("input.gap");if(!i||i.disabled)return;const p=i.selectionStart??i.value.length;i.value=i.value.slice(0,p)+ch+i.value.slice(i.selectionEnd??p);i.focus();i.setSelectionRange(p+1,p+1);});$("accents").appendChild(b);});}
+function drawTiles(){const t=$("tiles");t.innerHTML="";deck.forEach((it,i)=>{const d=document.createElement("div");d.className="tile"+(it.res==="ok"?" ok":it.res==="no"?" no":"")+(i===idx?" now":"");t.appendChild(d);});}
+function render(){if(idx>=deck.length)return finish();const it=deck[idx];checked=false;
+$("counter").textContent=`Fraza ${idx+1} / ${deck.length}`;$("tag").textContent=it.c;
+const parts=it.s.split("___");const p=$("sentence");p.innerHTML="";p.append(document.createTextNode(parts[0]));
+const inp=document.createElement("input");inp.className="gap";inp.type="text";inp.autocomplete="off";inp.spellcheck=false;inp.setAttribute("aria-label","forma verbului");p.append(inp);
+const cue=document.createElement("span");cue.className="cue";cue.textContent="("+it.v+")";p.append(document.createTextNode(" "));p.append(cue);p.append(document.createTextNode(parts[1]||""));
+$("fb").className="fb";$("btnCheck").textContent="Verifică";$("btnShow").style.display="inline-block";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;drawTiles();inp.focus();}
+function check(reveal){const it=deck[idx],inp=document.querySelector("input.gap");if(!inp)return;const val=inp.value;
+if(!reveal&&!val.trim()){inp.focus();return;}
+const ok=!reveal&&it.a.some(x=>norm(x)===norm(val));
+const exact=!reveal&&it.a.some(x=>x.toLowerCase()===val.toLowerCase().trim().replace(/\s+/g," "));
+inp.disabled=true;inp.classList.add(ok?"good":"bad");if(reveal)inp.value="—";
+it.res=ok?"ok":"no";if(ok)correct++;else missed.push(it);
+$("fb").className="fb show "+(ok?"good":"bad");
+$("verdict").textContent=ok?(exact?"Corect":"Corect — atenție la accent"):(reveal?"Răspunsul":"Greșit");
+$("sol").innerHTML="→ <b>"+it.a.join(" / ")+"</b>";$("why").innerHTML=it.e;
+$("btnCheck").textContent=(idx===deck.length-1)?"Vezi rezultatul":"Următoarea";$("btnShow").style.display="none";
+$("scoreL").textContent=`Corecte: ${correct}`;$("scoreR").textContent=`Greșite: ${missed.length}`;checked=true;drawTiles();$("btnCheck").focus();}
+function finish(){$("card").style.display="none";$("end").classList.add("show");
+const pct=Math.round(correct/deck.length*100);$("finalScore").textContent=`${correct}/${deck.length}`;
+$("finalMsg").textContent=pct>=90?"Imperfectul e stăpânit. Trece la indefinido.":pct>=70?"Bine. Verifică unde ai pierdut accentele.":"Reia mai ales categoria imperfecto o indefinido.";
+const ul=$("missed");ul.innerHTML="";if(!missed.length)ul.innerHTML="<li>Nicio greșeală.</li>";
+missed.forEach(m=>{const li=document.createElement("li");li.innerHTML=`<span class="m-s">${m.s.replace("___","______")} (${m.v})</span><br><span class="m-a">${m.a.join(" / ")}</span>`;ul.appendChild(li);});
+$("btnRedo").style.display=missed.length?"inline-block":"none";drawTiles();}
+function start(list){deck=list.map(o=>({...o,res:null}));idx=0;correct=0;missed=[];$("card").style.display="block";$("end").classList.remove("show");render();}
+$("btnCheck").addEventListener("click",()=>{checked?(idx++,render()):check(false);});
+$("btnShow").addEventListener("click",()=>check(true));
+$("btnRedo").addEventListener("click",()=>start(missed.slice()));
+$("btnRestart").addEventListener("click",()=>start(pool()));
+document.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checked?(idx++,render()):check(false);}});
+buildChips();buildAccents();start(pool());
+</script>
+</body>
+</html>

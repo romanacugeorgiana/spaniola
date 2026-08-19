@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ser o estar — practică B2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1B3A8C;
+  --azul-claro:#4A6FD4;
+  --yeso:#EFE9DE;
+  --yeso-2:#E4DCCD;
+  --tinta:#17181C;
+  --verde:#2E7D5B;
+  --rojo:#A83232;
+  --oro:#C8952B;
+  --display:'Fraunces',Georgia,serif;
+  --body:'Karla','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--yeso);
+  color:var(--tinta);
+  font-family:var(--body);
+  line-height:1.5;
+  padding:28px 18px 60px;
+  display:flex;justify-content:center;
+}
+.wrap{width:100%;max-width:680px}
+
+/* ---------- header ---------- */
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--azul);margin:0 0 6px;
+}
+h1{
+  font-family:var(--display);font-weight:700;font-size:clamp(34px,7vw,52px);
+  line-height:.98;margin:0 0 8px;letter-spacing:-.01em;
+}
+h1 em{font-style:italic;color:var(--azul)}
+.lede{margin:0 0 22px;max-width:46ch;font-size:15px;color:#4B4A46}
+
+/* ---------- azulejo progress ---------- */
+.tiles{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 22px}
+.tile{
+  width:15px;height:15px;border:1px solid var(--yeso-2);background:transparent;
+  transition:background .25s,border-color .25s;
+}
+.tile.ok{
+  border-color:var(--azul);
+  background:
+    linear-gradient(45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),
+    linear-gradient(-45deg,transparent 42%,var(--yeso) 42%,var(--yeso) 58%,transparent 58%),
+    var(--azul);
+}
+.tile.no{background:var(--rojo);border-color:var(--rojo);opacity:.75}
+.tile.now{border-color:var(--oro);box-shadow:inset 0 0 0 2px var(--oro)}
+
+/* ---------- card ---------- */
+.card{
+  background:#FBF8F2;border:1px solid var(--yeso-2);
+  border-top:3px solid var(--azul);
+  padding:26px 22px 22px;
+}
+.meta{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:#8A857A;margin-bottom:16px;
+}
+.sentence{
+  font-family:var(--display);font-size:clamp(19px,4.2vw,25px);line-height:1.65;
+  margin:0 0 18px;
+}
+input.gap{
+  font-family:var(--display);font-size:inherit;font-style:italic;
+  width:11ch;padding:0 4px 2px;margin:0 2px;
+  border:none;border-bottom:2px solid var(--azul-claro);
+  background:rgba(74,111,212,.07);color:var(--azul);
+  text-align:center;outline:none;
+}
+input.gap:focus{border-bottom-color:var(--oro);background:rgba(200,149,43,.12)}
+input.gap:disabled{opacity:1}
+input.gap.good{color:var(--verde);border-bottom-color:var(--verde);background:rgba(46,125,91,.08)}
+input.gap.bad{color:var(--rojo);border-bottom-color:var(--rojo);background:rgba(168,50,50,.08);text-decoration:line-through}
+
+.accents{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.accents button{
+  font-family:var(--display);font-size:16px;
+  width:34px;height:32px;border:1px solid var(--yeso-2);background:#fff;color:var(--tinta);
+  cursor:pointer;transition:border-color .15s,color .15s;
+}
+.accents button:hover{border-color:var(--azul);color:var(--azul)}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button.primary,button.ghost{
+  font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.02em;
+  padding:11px 20px;border:1px solid var(--azul);cursor:pointer;transition:.15s;
+}
+button.primary{background:var(--azul);color:var(--yeso)}
+button.primary:hover{background:#12296B}
+button.ghost{background:transparent;color:var(--azul)}
+button.ghost:hover{background:rgba(27,58,140,.07)}
+button:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+
+/* ---------- feedback ---------- */
+.fb{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--azul);background:rgba(27,58,140,.05);display:none}
+.fb.show{display:block}
+.fb.good{border-left-color:var(--verde);background:rgba(46,125,91,.07)}
+.fb.bad{border-left-color:var(--rojo);background:rgba(168,50,50,.06)}
+.fb .verdict{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+.fb.good .verdict{color:var(--verde)}
+.fb.bad .verdict{color:var(--rojo)}
+.fb .sol{font-family:var(--display);font-size:19px;margin:0 0 8px}
+.fb .sol b{color:var(--azul);font-style:italic}
+.fb .why{margin:0;font-size:14.5px;color:#3D3C38}
+
+/* ---------- score / end ---------- */
+.score{
+  display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;
+  color:#8A857A;margin-top:14px;letter-spacing:.08em;
+}
+.end{display:none;background:#FBF8F2;border:1px solid var(--yeso-2);border-top:3px solid var(--oro);padding:26px 22px}
+.end.show{display:block}
+.end h2{font-family:var(--display);font-size:30px;margin:0 0 4px}
+.big{font-family:var(--display);font-size:56px;line-height:1;color:var(--azul);margin:10px 0 4px}
+.missed{margin:18px 0 20px;padding:0;list-style:none}
+.missed li{border-top:1px solid var(--yeso-2);padding:10px 0;font-size:14.5px}
+.missed .m-s{color:#5A5850}
+.missed .m-a{font-family:var(--display);font-style:italic;color:var(--azul)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">DELE B2 · gramática en contexto</p>
+  <h1>Ser o <em>estar</em></h1>
+  <p class="lede">Scrie forma corectă a verbului <strong>ser</strong> sau <strong>estar</strong>, la timpul cerut de context. Apasă Enter ca să verifici și încă o dată ca să treci mai departe.</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="card" id="card">
+    <div class="meta"><span id="counter"></span><span id="tag"></span></div>
+    <p class="sentence" id="sentence"></p>
+    <div class="accents" id="accents"></div>
+    <div class="actions">
+      <button class="primary" id="btnCheck">Verifică</button>
+      <button class="ghost" id="btnShow">Nu știu</button>
+    </div>
+    <div class="fb" id="fb">
+      <p class="verdict" id="verdict"></p>
+      <p class="sol" id="sol"></p>
+      <p class="why" id="why"></p>
+    </div>
+    <div class="score"><span id="scoreL"></span><span id="scoreR"></span></div>
+  </div>
+
+  <div class="end" id="end">
+    <h2>Gata.</h2>
+    <p class="big" id="finalScore"></p>
+    <p id="finalMsg" style="margin:0 0 6px;color:#5A5850"></p>
+    <ul class="missed" id="missed"></ul>
+    <div class="actions">
+      <button class="primary" id="btnRedo">Reia doar greșelile</button>
+      <button class="ghost" id="btnRestart">Începe de la capăt</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ITEMS = [
+  {s:"La reunión de mañana ___ en la sala 3.",a:["es"],t:"eveniment",e:"Un eveniment care <em>are loc</em> undeva cere ser: la reunión es en la sala 3."},
+  {s:"La sala 3 ___ al final del pasillo, a la derecha.",a:["está"],t:"localizare",e:"Localizarea unui lucru sau a unei încăperi cere estar. Compară cu propoziția anterioară: evenimentul <em>es</em>, sala <em>está</em>."},
+  {s:"Este verano mi primo ___ de socorrista en una playa de Valencia.",a:["está"],t:"profesie de moment",e:"estar de + profesie = ocupație temporară. Cu ser ar însemna că asta e meseria lui."},
+  {s:"Mis padres ___ profesores de instituto desde hace treinta años.",a:["son"],t:"profesie",e:"Profesia stabilă, de carieră, cere ser."},
+  {s:"¡Prueba el gazpacho, ___ riquísimo!",a:["está"],t:"schimbare de sens",e:"estar rico = a fi delicios. ser rico = a fi bogat."},
+  {s:"Su familia ___ muy rica: tienen tres casas en la costa.",a:["es"],t:"schimbare de sens",e:"Aici rico = bogat, deci ser."},
+  {s:"Ten cuidado con él: ___ muy listo y siempre se sale con la suya.",a:["es"],t:"schimbare de sens",e:"ser listo = a fi isteț, deștept (trăsătură de caracter)."},
+  {s:"Cuando llegamos al aeropuerto, los niños ya ___ listos.",a:["estaban"],t:"schimbare de sens",e:"estar listo = a fi gata, pregătit. Imperfecto, pentru că descrie starea în care se aflau."},
+  {s:"No pienso ver esa película otra vez: ___ malísima.",a:["es"],t:"schimbare de sens",e:"ser malo = a fi prost, de proastă calitate."},
+  {s:"Ayer no fui a trabajar porque ___ malo.",a:["estaba","estuve"],t:"schimbare de sens",e:"estar malo = a fi bolnav. Cel mai natural aici e estaba (starea care explică acțiunea)."},
+  {s:"Estas peras todavía ___ verdes; espera unos días para comerlas.",a:["están"],t:"schimbare de sens",e:"estar verde = necopt. ser verde = culoarea verde."},
+  {s:"___ lógico que estés cansado después de un vuelo de doce horas.",a:["es"],t:"expresie impersonală",e:"Expresiile impersonale (es lógico, es probable, es seguro) merg cu ser."},
+  {s:"Hoy ___ a 17 de agosto y todavía no he reservado nada.",a:["estamos"],t:"dată",e:"Cu prepoziția a, data se exprimă cu estar: estamos a 17 de agosto. Fără a: hoy es 17 de agosto."},
+  {s:"Mañana ___ lunes y empieza el curso.",a:["es"],t:"dată",e:"Ziua și data, fără a, cer ser."},
+  {s:"Ahora mismo no puedo hablar: ___ preparando la cena.",a:["estoy"],t:"gerunziu",e:"estar + gerunziu = acțiune în desfășurare. Ser nu se combină niciodată cu gerunziul."},
+  {s:"El vestido que llevaba ___ de seda.",a:["era"],t:"material",e:"Materialul din care e făcut ceva cere ser; aici la imperfecto, pentru că descrie."},
+  {s:"La semana pasada nosotros ___ de vacaciones en Menorca.",a:["estuvimos"],t:"expresie fixă",e:"estar de vacaciones / de viaje / de compras — trei expresii fixe cu estar. Indefinido, fiindcă e o perioadă încheiată."},
+  {s:"Cuando la conocí, ella ___ de viaje por Sudamérica.",a:["estaba"],t:"expresie fixă",e:"estar de viaje, la imperfecto, pentru că e situația de fundal a momentului."},
+  {s:"Durante el examen tienes que ___ muy atento a las instrucciones.",a:["estar"],t:"schimbare de sens",e:"estar atento = a fi concentrat, atent. ser atento = a fi amabil, politicos. După tener que se pune infinitivul."},
+  {s:"Nuestro vecino ___ una persona muy atenta: siempre nos ayuda con las bolsas.",a:["es"],t:"schimbare de sens",e:"Aici atento = amabil, deci ser."},
+  {s:"El paquete ___ enviado ayer por la tarde.",a:["fue"],t:"pasiv",e:"Diateza pasivă se face cu ser + participiu: fue enviado."},
+  {s:"Desde que se cambió de trabajo, ___ mucho más tranquila.",a:["está"],t:"stare",e:"Rezultatul unei schimbări, o stare de moment: estar."},
+  {s:"Aunque vive en Berlín desde niña, ___ argentina.",a:["es"],t:"naționalitate",e:"Naționalitatea, ideologia și religia cer ser."},
+  {s:"Esa conferencia ___ aburridísima; me dormí a los diez minutos.",a:["fue"],t:"schimbare de sens",e:"ser aburrido = plictisitor (însușirea lucrului). Indefinido, pentru un eveniment încheiat."},
+  {s:"Los alumnos ___ aburridos porque la clase duró tres horas.",a:["estaban"],t:"schimbare de sens",e:"estar aburrido = plictisit (starea persoanei)."},
+  {s:"Después de la operación, mi padre ___ mucho más delgado que antes.",a:["está"],t:"stare",e:"Descrierea fizică e cu ser, dar când marchezi o schimbare față de cum era înainte, folosești estar."},
+  {s:"Marta ___ alta, morena y muy simpática.",a:["es"],t:"descriere",e:"Descrierea fizică și de caracter, ca trăsătură stabilă: ser."},
+  {s:"___ las cinco y cuarenta y cinco de la tarde.",a:["son"],t:"oră",e:"Ora se exprimă cu ser: son las cinco, es la una."}
+];
+
+const ACCENTS = ["á","é","í","ó","ú","ñ","ü","¿","¡"];
+
+let deck=[], idx=0, checked=false, correct=0, missed=[];
+
+const $=id=>document.getElementById(id);
+const norm=s=>s.toLowerCase().trim().replace(/\s+/g," ")
+  .normalize("NFD").replace(/[\u0300-\u0302\u0304-\u036f]/g,"")
+  .replace(/\u0303/g,"~").normalize("NFC");
+
+function buildAccents(){
+  $("accents").innerHTML="";
+  ACCENTS.forEach(ch=>{
+    const b=document.createElement("button");
+    b.textContent=ch;b.type="button";
+    b.addEventListener("click",()=>{
+      const i=document.querySelector("input.gap");
+      if(!i||i.disabled)return;
+      const p=i.selectionStart??i.value.length;
+      i.value=i.value.slice(0,p)+ch+i.value.slice(i.selectionEnd??p);
+      i.focus();i.setSelectionRange(p+1,p+1);
+    });
+    $("accents").appendChild(b);
+  });
+}
+
+function drawTiles(){
+  const t=$("tiles");t.innerHTML="";
+  deck.forEach((it,i)=>{
+    const d=document.createElement("div");
+    d.className="tile"+(it.res==="ok"?" ok":it.res==="no"?" no":"")+(i===idx?" now":"");
+    t.appendChild(d);
+  });
+}
+
+function render(){
+  if(idx>=deck.length)return finish();
+  const it=deck[idx];
+  checked=false;
+  $("counter").textContent=`Fraza ${idx+1} / ${deck.length}`;
+  $("tag").textContent=it.t;
+  const parts=it.s.split("___");
+  $("sentence").innerHTML="";
+  $("sentence").append(document.createTextNode(parts[0]));
+  const inp=document.createElement("input");
+  inp.className="gap";inp.type="text";inp.autocomplete="off";
+  inp.setAttribute("aria-label","forma verbului");
+  inp.spellcheck=false;
+  $("sentence").append(inp);
+  $("sentence").append(document.createTextNode(parts[1]||""));
+  $("fb").className="fb";
+  $("btnCheck").textContent="Verifică";
+  $("btnShow").style.display="inline-block";
+  $("scoreL").textContent=`Corecte: ${correct}`;
+  $("scoreR").textContent=`Greșite: ${missed.length}`;
+  drawTiles();
+  inp.focus();
+}
+
+function check(reveal){
+  const it=deck[idx], inp=document.querySelector("input.gap");
+  if(!inp)return;
+  const val=inp.value;
+  if(!reveal && !val.trim()){inp.focus();return;}
+  const ok = !reveal && it.a.some(x=>norm(x)===norm(val));
+  const exact = !reveal && it.a.some(x=>x.toLowerCase()===val.toLowerCase().trim());
+  inp.disabled=true;
+  inp.classList.add(ok?"good":"bad");
+  if(reveal)inp.value="—";
+  it.res = ok?"ok":"no";
+  if(ok)correct++; else missed.push(it);
+  $("fb").className="fb show "+(ok?"good":"bad");
+  $("verdict").textContent = ok ? (exact?"Corect":"Corect — atenție la accent") : (reveal?"Răspunsul":"Greșit");
+  $("sol").innerHTML = "→ <b>"+it.a.join(" / ")+"</b>";
+  $("why").innerHTML = it.e;
+  $("btnCheck").textContent = (idx===deck.length-1)?"Vezi rezultatul":"Următoarea";
+  $("btnShow").style.display="none";
+  $("scoreL").textContent=`Corecte: ${correct}`;
+  $("scoreR").textContent=`Greșite: ${missed.length}`;
+  checked=true;
+  drawTiles();
+  $("btnCheck").focus();
+}
+
+function finish(){
+  $("card").style.display="none";
+  $("end").classList.add("show");
+  const pct=Math.round(correct/deck.length*100);
+  $("finalScore").textContent=`${correct}/${deck.length}`;
+  $("finalMsg").textContent = pct>=90?"Nivel de examen. Ser/estar nu mai e o problemă."
+    : pct>=70?"Bine — dar recitește frazele de mai jos, acolo se pierd punctele."
+    : "Mai lucrează pe verbele cu schimbare de sens (listo, malo, rico, aburrido, verde, atento).";
+  const ul=$("missed");ul.innerHTML="";
+  if(!missed.length){ul.innerHTML='<li>Nicio greșeală.</li>';}
+  missed.forEach(m=>{
+    const li=document.createElement("li");
+    li.innerHTML=`<span class="m-s">${m.s.replace("___","______")}</span><br><span class="m-a">${m.a.join(" / ")}</span>`;
+    ul.appendChild(li);
+  });
+  $("btnRedo").style.display=missed.length?"inline-block":"none";
+  drawTiles();
+}
+
+function start(list){
+  deck=list.map(o=>({...o,res:null}));
+  idx=0;correct=0;missed=[];
+  $("card").style.display="block";
+  $("end").classList.remove("show");
+  render();
+}
+
+$("btnCheck").addEventListener("click",()=>{ if(checked){idx++;render();} else check(false); });
+$("btnShow").addEventListener("click",()=>check(true));
+$("btnRedo").addEventListener("click",()=>start(missed.slice()));
+$("btnRestart").addEventListener("click",()=>start(ITEMS));
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){e.preventDefault(); if(checked){idx++;render();} else check(false);}
+});
+
+buildAccents();
+start(ITEMS);
+</script>
+</body>
+</html>
