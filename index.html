@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Español con Georgiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4F7;
+  --card:#FFFFFF;
+  --navy:#1A2E48;
+  --gold:#C9A84C;
+  --dim:#6B7A8D;
+  --border:#E4E8EF;
+  --shadow:0 1px 3px rgba(26,46,72,.06),0 4px 16px rgba(26,46,72,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:44px 20px 72px;
+}
+header{text-align:center;margin-bottom:32px;}
+.brand{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(1.9rem,6vw,2.5rem);
+  font-weight:600;
+  color:var(--navy);
+  letter-spacing:.02em;
+  line-height:1.1;
+  margin-bottom:8px;
+}
+.brand em{font-style:italic;color:var(--gold);}
+.tagline{font-size:.75rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:860px;}
+@media(max-width:620px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:380px){.grid{grid-template-columns:1fr;}}
+a.card{
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  background:var(--card);
+  border-radius:12px;
+  padding:14px 16px 12px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+  transition:border-color .15s,box-shadow .15s;
+}
+a.card:hover,a.card:focus{
+  border-color:#b0bcd4;
+  box-shadow:0 2px 6px rgba(26,46,72,.08),0 8px 28px rgba(26,46,72,.12);
+  outline:none;
+}
+a.card:active{opacity:.9;}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px;}
+.titles{flex:1;}
+.ro{font-size:.9rem;font-weight:600;color:var(--navy);line-height:1.2;margin-bottom:2px;}
+.en{font-size:.72rem;color:var(--dim);font-style:italic;}
+.tag{
+  font-size:.55rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--dim);
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:2px;
+  padding:2px 7px;
+  border:1px solid var(--border);
+  border-radius:999px;
+}
+.desc{font-size:.72rem;color:var(--dim);line-height:1.55;flex:1;}
+.chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:7px;}
+.chip{font-size:.58rem;color:#8a96a5;padding:2px 6px;border-radius:999px;border:1px solid var(--border);font-weight:500;}
+footer{margin-top:44px;font-size:.7rem;color:#aab;text-align:center;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Español con <em>Georgiana</em></div>
+  <p class="tagline">Spanish exercises &mdash; select a lesson</p>
+</header>
+
+<div class="grid">
+
+  <a class="card" href="exercitii/presente.html">
+    <div class="card-top">
+      <div class="titles">
+        <div class="ro">Presente de indicativo</div>
+        <div class="en">Present tense</div>
+      </div>
+      <span class="tag">Interactive</span>
+    </div>
+    <p class="desc">100 de exerciții de conjugare la prezent pentru verbele din cele trei conjugări.</p>
+    <div class="chips">
+      <span class="chip">Conjugare</span>
+      <span class="chip">Prezent</span>
+      <span class="chip">100 exerciții</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>Español con Georgiana &nbsp;&middot;&nbsp; All exercises are free to access.</footer>
+
+</body>
+</html>
